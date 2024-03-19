@@ -6,6 +6,43 @@
 //
 
 import SwiftUI
+import PDFKit
+
+
+//
+//  PDF section begins
+//
+
+struct PDFKitView: UIViewRepresentable {
+    var url: URL
+
+    func makeUIView(context: Context) -> PDFView {
+        let pdfView = PDFView()
+        pdfView.document = PDFDocument(url: url)
+        return pdfView
+    }
+
+    func updateUIView(_ uiView: PDFView, context: Context) {
+        //
+    }
+}
+
+func extractText(from pdfDocument: PDFDocument) -> String? {
+    var extractedText = ""
+    for pageIndex in 0..<pdfDocument.pageCount {
+        guard let page = pdfDocument.page(at: pageIndex) else { continue }
+        guard let pageText = page.string else { continue }
+        extractedText += pageText
+    }
+    return extractedText.isEmpty ? nil : extractedText
+}
+
+
+//
+//  PDF section ends
+//
+
+
 
 struct SelectLocalFileView: View {
 
