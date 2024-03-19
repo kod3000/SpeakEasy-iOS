@@ -1,2 +1,9 @@
 github "Alamofire/Alamofire" ~> 5.4
+github "SwiftyJSON/SwiftyJSON" ~> 4.0
+github "SwiftyJSON/Alamofire-SwiftyJSON" "master"
+github "ReactiveX/RxSwift" "6.6.0"
+github "airbnb/lottie-ios" "master"
+
+
+
 
