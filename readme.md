@@ -4,7 +4,7 @@
 
 Speak Easy is an iOS application being developed using SwiftUI that will allow users to easily convert PDF documents into speech. With Speak Easy, you can select PDFs from your local device or reference PDFs from URLs and have them read aloud to you.
 
-## Features/Requirements
+## Features
 
 - **PDF Selection**: Choose PDF files from your local device or reference PDFs from URLs.
 - **Text-to-Speech**: Convert the contents of PDF documents into speech.
