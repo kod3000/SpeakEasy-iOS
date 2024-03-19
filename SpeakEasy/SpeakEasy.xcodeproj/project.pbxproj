@@ -134,6 +134,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3DBC217F2BA99292001B2898 /* Build configuration list for PBXNativeTarget "SpeakEasy" */;
 			buildPhases = (
+				3D701D352BA9EB9400BEBA70 /* Run Carthage Framework builds */,
 				3DBC21572BA9928E001B2898 /* Sources */,
 				3DBC21582BA9928E001B2898 /* Frameworks */,
 				3DBC21592BA9928E001B2898 /* Resources */,
@@ -251,6 +252,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3D701D352BA9EB9400BEBA70 /* Run Carthage Framework builds */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			name = "Run Carthage Framework builds";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3DBC21572BA9928E001B2898 /* Sources */ = {
