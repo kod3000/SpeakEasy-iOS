@@ -1,5 +1,3 @@
-github "Alamofire/Alamofire" "5.9.0"
 github "ReactiveX/RxSwift" "6.6.0"
-github "SwiftyJSON/Alamofire-SwiftyJSON" "64b4c1e710555061e50aad02e8795542fd0a5df5"
-github "SwiftyJSON/SwiftyJSON" "4.3.0"
-github "airbnb/lottie-ios" "41dfe7b0d8c3349adc7a5a03a1c6aaac8746433d"
+github "SwiftyJSON/SwiftyJSON" "5.0.1"
+github "airbnb/lottie-ios" "3.5.0"

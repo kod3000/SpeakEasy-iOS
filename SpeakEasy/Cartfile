@@ -1,9 +1,5 @@
-github "Alamofire/Alamofire" ~> 5.4
-github "SwiftyJSON/SwiftyJSON" ~> 4.0
-github "SwiftyJSON/Alamofire-SwiftyJSON" "master"
-github "ReactiveX/RxSwift" "6.6.0"
-github "airbnb/lottie-ios" "master"
-
-
-
-
+github "SwiftyJSON/SwiftyJSON" ~> 5.0
+github "airbnb/lottie-ios" ~> 3.2
+# xcode 14.2 / macOS 12.7.4 unable to build correctly using carthage.
+# moving over to use swifts native package managment
+# RIP PODS & CARTHAGE >_<
