@@ -18,6 +18,47 @@ func configureAudioSession() {
     }
 }
 
+func fetchRegexRules() {
+    // Define the rules as if it coming from a api call
+    let fetchedRules: [String: Any] = [
+        "rules": [
+            [
+                "id": 1,
+                "pattern": "\\[[1-9]+\\*+,[^\\]]*\\]",
+                "logicName": "removeRefCit"
+            ],
+            [
+                "id": 2,
+                "pattern": "\\b\\d+(\\.\\d+)*\\b",
+                "logicName": "sectionFinder"
+            ],
+            [
+                "id": 3,
+                "pattern": "(\\w+)-(\\n?)(\\w+)",
+                "logicName": "restoreSplitWords"
+            ]
+        ]
+    ]
+    let textProcessor = TextProcessor()
+
+    // Ensure the 'rules' key contains an array
+    if let rules = fetchedRules["rules"] as? [[String: Any]] {
+        // Iterate through each rule in the array
+        for rule in rules {
+            // Extract the logicName and pattern for each rule
+            if let logicName = rule["logicName"] as? String,
+               let pattern = rule["pattern"] as? String,
+               let logic = PatternLogicFactory.logic(forName: logicName) {
+                // Create a TextProcessingRule and add it to the textProcessor
+                let textRule = TextProcessingRule(pattern: pattern, replacement: logic)
+                textProcessor.addRule(textRule)
+            }
+        }
+    }
+}
+
+
+
 // TODO: Convert the regex patterns into a logic that comes from a server
 func removeRefCit(text: String) -> String {
     let regexPattern = "\\[[1-9]+\\*+,[^\\]]*\\]"
@@ -25,6 +66,8 @@ func removeRefCit(text: String) -> String {
     let range = NSRange(text.startIndex..., in: text)
     return regex.stringByReplacingMatches(in: text, options: [], range: range, withTemplate: "\n\n")
 }
+
+
 
 func findPossibleSections(text: String) -> String {
     let regexPattern = "\\b\\d+(\\.\\d+)*\\b"
@@ -42,5 +85,7 @@ func findPossibleSections(text: String) -> String {
 
 func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
     guard let page = pdfDocument.page(at: pageIndex) else { return nil }
-    return removeRefCit(text:page.string!)
+    //    return removeRefCit(text:page.string!)
+    let textProcessor = TextProcessor()
+    return textProcessor.process(text:page.string!)
 }

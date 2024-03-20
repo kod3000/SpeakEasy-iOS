@@ -18,6 +18,8 @@
 		3D11974B2BAB0047003621C9 /* FetchUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11974A2BAB0047003621C9 /* FetchUrlView.swift */; };
 		3D11974D2BAB16D0003621C9 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11974C2BAB16D0003621C9 /* SpeechService.swift */; };
 		3D1197502BAB27B6003621C9 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11974F2BAB27B6003621C9 /* General.swift */; };
+		3D1197522BAB81E1003621C9 /* PatternLogicFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197512BAB81E1003621C9 /* PatternLogicFactory.swift */; };
+		3D1197542BAB86A4003621C9 /* TextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197532BAB86A4003621C9 /* TextProcessor.swift */; };
 		3DBC215F2BA9928E001B2898 /* SpeakEasyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC215E2BA9928E001B2898 /* SpeakEasyApp.swift */; };
 		3DBC21612BA9928E001B2898 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC21602BA9928E001B2898 /* ContentView.swift */; };
 		3DBC21632BA99292001B2898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DBC21622BA99292001B2898 /* Assets.xcassets */; };
@@ -54,6 +56,8 @@
 		3D11974A2BAB0047003621C9 /* FetchUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUrlView.swift; sourceTree = "<group>"; };
 		3D11974C2BAB16D0003621C9 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
 		3D11974F2BAB27B6003621C9 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
+		3D1197512BAB81E1003621C9 /* PatternLogicFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternLogicFactory.swift; sourceTree = "<group>"; };
+		3D1197532BAB86A4003621C9 /* TextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProcessor.swift; sourceTree = "<group>"; };
 		3DBC215B2BA9928E001B2898 /* SpeakEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeakEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBC215E2BA9928E001B2898 /* SpeakEasyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakEasyApp.swift; sourceTree = "<group>"; };
 		3DBC21602BA9928E001B2898 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -124,6 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				3D11974C2BAB16D0003621C9 /* SpeechService.swift */,
+				3D1197512BAB81E1003621C9 /* PatternLogicFactory.swift */,
+				3D1197532BAB86A4003621C9 /* TextProcessor.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D1197522BAB81E1003621C9 /* PatternLogicFactory.swift in Sources */,
 				3D1197492BAAFF73003621C9 /* HistoryView.swift in Sources */,
 				3DBC21612BA9928E001B2898 /* ContentView.swift in Sources */,
 				3D1197412BAAFADB003621C9 /* Buttons.swift in Sources */,
@@ -364,6 +371,7 @@
 				3D11974B2BAB0047003621C9 /* FetchUrlView.swift in Sources */,
 				3D1197432BAAFB41003621C9 /* HistoryList.swift in Sources */,
 				3DBC215F2BA9928E001B2898 /* SpeakEasyApp.swift in Sources */,
+				3D1197542BAB86A4003621C9 /* TextProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
