@@ -15,6 +15,16 @@ struct PDFKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> PDFView {
         let pdfView = PDFView()
         pdfView.document = PDFDocument(url: url)
+        // count the pages
+        print(pdfView.document?.pageCount)
+
+        // extract text
+        if let pdfDocument = pdfView.document {
+            if let extractedText = extractText(from: pdfDocument) {
+                print(extractedText)
+            }
+        }
+
         return pdfView
     }
 
