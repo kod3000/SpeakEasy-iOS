@@ -71,6 +71,16 @@ class PDFDownloader {
     }
 }
 
+func configureAudioSession() {
+    do {
+        // Set the audio session category, mode, and options as needed
+        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: [])
+        try AVAudioSession.sharedInstance().setActive(true)
+    } catch {
+        print("Failed to set up audio session: \(error)")
+    }
+}
+
 struct PDFContentView: View {
     @State private var pdfURL: URL?
     @State private var selectedPage: Int = 1
@@ -86,6 +96,7 @@ struct PDFContentView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                     Button("Read Aloud") {
+                        configureAudioSession()
                         // Assuming PDFDocument is available here; you might need to adjust scope.
                         // You would extract text and start speaking here.
                         if let pdfDocument = PDFDocument(url: pdfURL),

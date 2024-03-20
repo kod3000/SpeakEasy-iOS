@@ -4,21 +4,41 @@
 //
 //  Created by username on 3/20/24.
 //
-
 import Foundation
 import AVFoundation
 
-class SpeechSynthesizer {
+
+class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     private let synthesizer = AVSpeechSynthesizer()
     private var isSpeaking: Bool = false
 
+    override init() {
+        super.init()
+        synthesizer.delegate = self
+    }
+
     func speak(_ text: String) {
-        if isSpeaking {
-            synthesizer.pauseSpeaking(at: .immediate)
-        } else {
-            let utterance = AVSpeechUtterance(string: text)
-            synthesizer.speak(utterance)
+        if synthesizer.isSpeaking {
+            synthesizer.stopSpeaking(at: .immediate) // or .word, based on your need
         }
-        isSpeaking.toggle()
+        let utterance = AVSpeechUtterance(string: text)
+        synthesizer.speak(utterance)
+    }
+
+    // Implement delegate methods to update isSpeaking
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        isSpeaking = true
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        isSpeaking = false
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+        isSpeaking = false
+    }
+
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+        isSpeaking = true
     }
 }

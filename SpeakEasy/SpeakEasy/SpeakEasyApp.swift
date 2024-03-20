@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 @main
 struct SpeakEasyApp: App {
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
     }
 }
+
+
+
