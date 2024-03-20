@@ -90,6 +90,8 @@ struct PDFContentView: View {
                         // You would extract text and start speaking here.
                         if let pdfDocument = PDFDocument(url: pdfURL),
                            let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
+                            // print out text to console
+                            print(text)
                             synthesizer.speak(text)
                         }
                     }
