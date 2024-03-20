@@ -17,6 +17,7 @@
 		3D1197492BAAFF73003621C9 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197482BAAFF73003621C9 /* HistoryView.swift */; };
 		3D11974B2BAB0047003621C9 /* FetchUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11974A2BAB0047003621C9 /* FetchUrlView.swift */; };
 		3D11974D2BAB16D0003621C9 /* SpeechService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11974C2BAB16D0003621C9 /* SpeechService.swift */; };
+		3D1197502BAB27B6003621C9 /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11974F2BAB27B6003621C9 /* General.swift */; };
 		3DBC215F2BA9928E001B2898 /* SpeakEasyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC215E2BA9928E001B2898 /* SpeakEasyApp.swift */; };
 		3DBC21612BA9928E001B2898 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC21602BA9928E001B2898 /* ContentView.swift */; };
 		3DBC21632BA99292001B2898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DBC21622BA99292001B2898 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		3D1197482BAAFF73003621C9 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		3D11974A2BAB0047003621C9 /* FetchUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUrlView.swift; sourceTree = "<group>"; };
 		3D11974C2BAB16D0003621C9 /* SpeechService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechService.swift; sourceTree = "<group>"; };
+		3D11974F2BAB27B6003621C9 /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		3DBC215B2BA9928E001B2898 /* SpeakEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeakEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBC215E2BA9928E001B2898 /* SpeakEasyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakEasyApp.swift; sourceTree = "<group>"; };
 		3DBC21602BA9928E001B2898 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		3D11974E2BAB277E003621C9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				3D11974F2BAB27B6003621C9 /* General.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		3D701D372BAAD88F00BEBA70 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +176,7 @@
 		3DBC215D2BA9928E001B2898 /* SpeakEasy */ = {
 			isa = PBXGroup;
 			children = (
+				3D11974E2BAB277E003621C9 /* Utilities */,
 				3D11973F2BAAF9DB003621C9 /* Components */,
 				3D11973E2BAAF9D3003621C9 /* Services */,
 				3D11973D2BAAF9C3003621C9 /* Models */,
@@ -347,6 +358,7 @@
 				3DBC21612BA9928E001B2898 /* ContentView.swift in Sources */,
 				3D1197412BAAFADB003621C9 /* Buttons.swift in Sources */,
 				3D1197452BAAFB9F003621C9 /* LocalFilesView.swift in Sources */,
+				3D1197502BAB27B6003621C9 /* General.swift in Sources */,
 				3D1197472BAAFC2D003621C9 /* PdfContentView.swift in Sources */,
 				3D11974D2BAB16D0003621C9 /* SpeechService.swift in Sources */,
 				3D11974B2BAB0047003621C9 /* FetchUrlView.swift in Sources */,

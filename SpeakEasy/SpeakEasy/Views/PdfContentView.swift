@@ -11,11 +11,6 @@ import Alamofire
 import AVFoundation
 
 
-func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
-    guard let page = pdfDocument.page(at: pageIndex) else { return nil }
-    return page.string
-}
-
 
 struct PDFKitView: UIViewRepresentable {
     var url: URL
@@ -27,8 +22,7 @@ struct PDFKitView: UIViewRepresentable {
     // TODO: extract only the text from the selected page
     // TODO: give the page to the user as it the text is being read
     // TODO: allow the user to pause and play the speech text
-     
-        
+             
     func makeUIView(context: Context) -> PDFView {
         let pdfView = PDFView()
         pdfView.document = PDFDocument(url: url)
@@ -71,15 +65,7 @@ class PDFDownloader {
     }
 }
 
-func configureAudioSession() {
-    do {
-        // Set the audio session category, mode, and options as needed
-        try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: [])
-        try AVAudioSession.sharedInstance().setActive(true)
-    } catch {
-        print("Failed to set up audio session: \(error)")
-    }
-}
+
 
 struct PDFContentView: View {
     @State private var pdfURL: URL?
@@ -97,12 +83,9 @@ struct PDFContentView: View {
                         .padding()
                     Button("Read Aloud") {
                         configureAudioSession()
-                        // Assuming PDFDocument is available here; you might need to adjust scope.
-                        // You would extract text and start speaking here.
+                        // Assuming PDFDocument is available here; add in a check to know if speaking or not
                         if let pdfDocument = PDFDocument(url: pdfURL),
                            let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
-                            // print out text to console
-                            print(text)
                             synthesizer.speak(text)
                         }
                     }
