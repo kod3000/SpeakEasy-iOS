@@ -78,9 +78,17 @@ struct PDFContentView: View {
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
                 HStack {
-                    TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
+                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
+                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                         .padding()
+                     // Scroll to the selected page when the user stops scrolling
+//                    ScrollViewReader { scrollView in
+//                        Button("Go to Page") {
+//                            withAnimation {
+//                                scrollView.scrollTo(selectedPage, anchor: .top)
+//                            }
+//                        }
+//                    }
                     Button("Read Aloud") {
                         configureAudioSession()
                         // Assuming PDFDocument is available here; add in a check to know if speaking or not

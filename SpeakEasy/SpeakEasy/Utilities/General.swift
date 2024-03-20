@@ -29,7 +29,7 @@ func fetchRegexRules(textProcessor:TextProcessor) {
             ],
             [
                 "id": 2,
-                "pattern": "\\b\\d+(\\.\\d+)*\\b",
+                "pattern": "\\b(\\n?)+\\d+(\\.\\d+)*\\b",
                 "logicName": "sectionFinder"
             ],
             [
