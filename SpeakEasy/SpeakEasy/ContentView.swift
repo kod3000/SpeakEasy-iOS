@@ -7,7 +7,7 @@
 
 import SwiftUI
 import PDFKit
-
+import Alamofire
 
 //
 //  PDF section begins
@@ -24,6 +24,51 @@ struct PDFKitView: UIViewRepresentable {
 
     func updateUIView(_ uiView: PDFView, context: Context) {
         //
+    }
+}
+
+class PDFDownloader {
+    static func downloadPDF(from urlString: String, completion: @escaping (URL?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            completion(nil)
+            return
+        }
+        
+        let destination: DownloadRequest.Destination = { _, _ in
+            let directory = FileManager.default.temporaryDirectory
+            let filePath = directory.appendingPathComponent(UUID().uuidString + ".pdf")
+            return (filePath, [.removePreviousFile, .createIntermediateDirectories])
+        }
+        
+        AF.download(url, to: destination).response { response in
+            if response.error == nil, let pdfURL = response.fileURL {
+                completion(pdfURL)
+            } else {
+                print("Error downloading PDF: \(response.error?.localizedDescription ?? "unknown error")")
+                completion(nil)
+            }
+        }
+    }
+}
+
+
+struct PdFContentView: View {
+    @State private var pdfURL: URL?
+    
+    var body: some View {
+        VStack {
+            if let pdfURL = pdfURL {
+                PDFKitView(url: pdfURL)
+                    .edgesIgnoringSafeArea(.all)
+            } else {
+                Button("Download PDF") {
+                    PDFDownloader.downloadPDF(from: "https://static.kod.us/files/swebok-v3.pdf") { url in
+                        self.pdfURL = url
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -48,7 +93,7 @@ struct SelectLocalFileView: View {
 
     var body: some View {
         NavigationLink(destination: LocalFileView()) {
-            Button(title: "Select Local File")
+            Btn(title: "Select Local File")
         
         }
     }
@@ -58,7 +103,7 @@ struct SelectUrlView: View {
     
     var body: some View {
         NavigationLink(destination: UrlFileView()) {
-            Button(title:"Select URL")
+            Btn(title:"Select URL")
         }
     }
 }
@@ -66,7 +111,7 @@ struct SelectUrlView: View {
 struct LastUsedView: View {
     var body: some View {
         NavigationLink(destination: ListHistoryView()) {
-            Button(title:"See last viewed files")
+            Btn(title:"See last viewed files")
         }
     }
 }
@@ -130,7 +175,7 @@ struct ContentView: View {
 
 }
 
-struct Button: View {
+struct Btn: View {
     var title: String
     var body: some View {
         ZStack {
