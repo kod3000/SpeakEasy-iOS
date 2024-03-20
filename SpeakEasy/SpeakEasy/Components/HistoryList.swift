@@ -7,14 +7,17 @@
 
 import SwiftUI
 
-struct HistoryList: View {
+// ListView to display last used items
+struct ListHistoryView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            Text("Document PDF 1")
+            Text("Document PDF 2")
+            Text("Document PDF 3")
+        }
     }
-}
-
-struct HistoryList_Previews: PreviewProvider {
-    static var previews: some View {
-        HistoryList()
-    }
+    // TODO: Here we would have a history of
+    // the pdf files the user has played.
+    // history should not repeat the same file
+    
 }
