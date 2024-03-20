@@ -18,7 +18,7 @@ func configureAudioSession() {
     }
 }
 
-// remove ref citations pattern
+// TODO: Convert the regex patterns into a logic that comes from a server
 func removeRefCit(text: String) -> String {
     let regexPattern = "\\[[1-9]+\\*+,[^\\]]*\\]"
     guard let regex = try? NSRegularExpression(pattern: regexPattern) else { return text }
@@ -37,7 +37,6 @@ func findPossibleSections(text: String) -> String {
         let matchText = text[matchRange]
         modifiedText = modifiedText.replacingOccurrences(of: matchText, with: "\n\nSection \(matchText)\n")
     }
-
     return modifiedText
 }
 
