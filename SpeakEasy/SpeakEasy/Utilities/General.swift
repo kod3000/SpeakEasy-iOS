@@ -18,7 +18,7 @@ func configureAudioSession() {
     }
 }
 
-func fetchRegexRules() {
+func fetchRegexRules(textProcessor:TextProcessor) {
     // Define the rules as if it coming from a api call
     let fetchedRules: [String: Any] = [
         "rules": [
@@ -39,8 +39,8 @@ func fetchRegexRules() {
             ]
         ]
     ]
-    let textProcessor = TextProcessor()
 
+    
     // Ensure the 'rules' key contains an array
     if let rules = fetchedRules["rules"] as? [[String: Any]] {
         // Iterate through each rule in the array
@@ -87,5 +87,6 @@ func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
     guard let page = pdfDocument.page(at: pageIndex) else { return nil }
     //    return removeRefCit(text:page.string!)
     let textProcessor = TextProcessor()
+    fetchRegexRules(textProcessor: textProcessor)
     return textProcessor.process(text:page.string!)
 }
