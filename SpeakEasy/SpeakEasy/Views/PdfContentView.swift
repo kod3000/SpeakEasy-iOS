@@ -11,15 +11,10 @@ import Alamofire
 import AVFoundation
 
 
-
 struct PDFKitView: UIViewRepresentable {
     var url: URL
     @Binding var selectedPage: Int
 
-    // TODO: count the pages
-    // TODO: ask the user what page they want to read.
-    // TODO: record the page number
-    // TODO: extract only the text from the selected page
     // TODO: give the page to the user as it the text is being read
     // TODO: allow the user to pause and play the speech text
              
@@ -65,30 +60,36 @@ class PDFDownloader {
     }
 }
 
-
-
 struct PDFContentView: View {
     @State private var pdfURL: URL?
     @State private var selectedPage: Int = 1
     @State private var synthesizer = SpeechSynthesizer()
-
+    func numberOfPages(in url: URL) -> Int {
+        if let document = PDFDocument(url: url) {
+            return document.pageCount
+        }
+        return 0
+    }
     var body: some View {
         VStack {
             if let pdfURL = pdfURL {
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
+                ScrollView(.horizontal, showsIndicators: true) {
+                                  HStack {
+                                      ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
+                                          Text("Page \(pageNumber)")
+                                              .padding()
+                                              .onTapGesture {
+                                                  self.selectedPage = pageNumber
+                                              }
+                                      }
+                                  }
+                              }
                 HStack {
-                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
-                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                         .padding()
-                     // Scroll to the selected page when the user stops scrolling
-//                    ScrollViewReader { scrollView in
-//                        Button("Go to Page") {
-//                            withAnimation {
-//                                scrollView.scrollTo(selectedPage, anchor: .top)
-//                            }
-//                        }
-//                    }
+//                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
+//                         .textFieldStyle(RoundedBorderTextFieldStyle())
+//                         .padding()
                     Button("Read Aloud") {
                         configureAudioSession()
                         // Assuming PDFDocument is available here; add in a check to know if speaking or not
