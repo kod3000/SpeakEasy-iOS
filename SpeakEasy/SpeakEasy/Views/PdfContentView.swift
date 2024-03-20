@@ -2,7 +2,7 @@
 //  PdfContentView.swift
 //  SpeakEasy
 //
-//  Created by username on 3/20/24.
+//  Created by Nestor Rivera (aka dany) on 3/20/24.
 //
 
 import SwiftUI
