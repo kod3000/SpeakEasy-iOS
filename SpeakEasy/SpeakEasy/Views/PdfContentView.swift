@@ -7,7 +7,6 @@
 
 import SwiftUI
 import PDFKit
-// Import Alamofire if `PDFDownloader` is in this file
 import Alamofire
 
 struct PDFKitView: UIViewRepresentable {
@@ -72,7 +71,7 @@ struct PDFContentView: View {
             } else {
                 Button("Download PDF") {
                     PDFDownloader.downloadPDF(from: "https://static.kod.us/files/swebok-v3.pdf") { url in
-                        DispatchQueue.main.async { // Switch to the main thread for UI update
+                        DispatchQueue.main.async {
                             self.pdfURL = url
                         }
                     }

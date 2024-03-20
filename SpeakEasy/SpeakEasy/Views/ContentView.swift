@@ -25,7 +25,7 @@ struct LastUsedView: View {
 }
 struct PdfView: View {
     var body: some View {
-        NavigationLink(destination: PdfContentView()) {
+        NavigationLink(destination: PDFContentView()) {
             Btn(title:"Test PDF View")
         }
     }
