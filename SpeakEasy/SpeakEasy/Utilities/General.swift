@@ -43,5 +43,5 @@ func findPossibleSections(text: String) -> String {
 
 func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
     guard let page = pdfDocument.page(at: pageIndex) else { return nil }
-    return removeRefCit(page.string)
+    return removeRefCit(text:page.string)
 }
