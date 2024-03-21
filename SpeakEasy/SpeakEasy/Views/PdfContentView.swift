@@ -32,6 +32,16 @@ struct PDFContentView: View {
                    Text("Reading Page \(readFromPage)").padding()
                }
         }
+          if isLecturing && isReading{              
+              ScrollView {
+                  Text(synthesizer.displayText())
+                      .padding()
+              }
+              .frame(height: 100)
+              .background(Color.gray.opacity(0.1))
+              .cornerRadius(5)
+              .padding()
+          }
         PDFKitView(url: pdfURL, selectedPage: $selectedPage)
           .edgesIgnoringSafeArea(.all)
         ScrollView(.horizontal, showsIndicators: false) {
