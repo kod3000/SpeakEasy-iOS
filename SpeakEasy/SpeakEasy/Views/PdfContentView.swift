@@ -68,6 +68,8 @@ struct PDFContentView: View {
     @State private var pdfURL: URL?
     @State private var pdfURLEntered: String = "https://static.kod.us/files/swebok-v3.pdf"
     @State private var selectedPage: Int = 1
+    @State private var isReading = false
+    @State private var isLecturing = false // know if we started the lecture or not
     @State private var synthesizer = SpeechSynthesizer()
 
     var body: some View {
@@ -75,7 +77,7 @@ struct PDFContentView: View {
             if let pdfURL = pdfURL {
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
-                    ScrollView(.horizontal, showsIndicators: false) {
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
                            VStack {
@@ -98,7 +100,7 @@ struct PDFContentView: View {
                        }
                     }
                 }
-                Button("Read Aloud") {
+                Button(isLecturing ? (isReading ? "Pause Reading" : "Continue Reading" )  :"Read Aloud") {
                     configureAudioSession()
                     // TODO: add in a check to know if speaking or not
                     if let pdfDocument = PDFDocument(url: pdfURL),
@@ -106,6 +108,8 @@ struct PDFContentView: View {
                         // remove first line from text
                         let lines = text.components(separatedBy: "\n")
                         let newText = lines.dropFirst().joined(separator: "\n")
+                        isLecturing.toggle()
+                        isReading.toggle()
                         synthesizer.speak(newText)
                     }
                 }

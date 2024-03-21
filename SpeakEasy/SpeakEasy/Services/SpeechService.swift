@@ -19,10 +19,14 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
 
     func speak(_ text: String) {
         if synthesizer.isSpeaking {
-            synthesizer.stopSpeaking(at: .immediate) // or .word, based on your need
+            synthesizer.stopSpeaking(at: .immediate)
         }
         let utterance = AVSpeechUtterance(string: text)
         synthesizer.speak(utterance)
+    }
+    
+    func speaker()->AVSpeechSynthesizer{
+        return synthesizer
     }
     
     func currentlySpeaking() -> Bool{

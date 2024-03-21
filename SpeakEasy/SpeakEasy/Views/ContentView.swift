@@ -8,28 +8,6 @@
 import SwiftUI
 import Alamofire
 
-
-struct SelectUrlView: View {
-    var body: some View {
-        NavigationLink(destination: FetchUrlView()) {
-            Btn(title:"Select URL")
-        }
-    }
-}
-struct LastUsedView: View {
-    var body: some View {
-        NavigationLink(destination: HistoryView()) {
-            Btn(title:"See last viewed files")
-        }
-    }
-}
-struct PdfView: View {
-    var body: some View {
-        NavigationLink(destination: PDFContentView()) {
-            Btn(title:"Test PDF View")
-        }
-    }
-}
 struct ContentView: View {
     var body: some View {
         NavigationView {
@@ -37,9 +15,15 @@ struct ContentView: View {
                 NavigationLink(destination: LocalFilesView()) {
                     Btn(title: "Select Local File")
                 }
-                SelectUrlView()
-                LastUsedView()
-                PdfView()
+                NavigationLink(destination: FetchUrlView()) {
+                           Btn(title:"Select URL")
+                       }
+                NavigationLink(destination: HistoryView()) {
+                         Btn(title:"See last viewed files")
+                     }
+                NavigationLink(destination: PDFContentView()) {
+                         Btn(title:"Test PDF View")
+                     }
             }
             .padding()
         }
