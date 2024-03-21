@@ -8,10 +8,7 @@
 import SwiftUI
 
 
-// TODO: This would call a pdf link
-// once the link is found it should save it locally
-// the files should turn up in the local files
-// this way they have it offline as well.
+
 
 struct FetchUrlView: View {
     var body: some View {

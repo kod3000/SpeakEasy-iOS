@@ -9,7 +9,13 @@ import Foundation
 import AVFoundation
 import PDFKit
 
+/// Used to start the audio session on device
+/// - Notes: 
+///     This is required to play audio on the device
+///     Ideally, this should be called in the `init` of the `AppDelegate`
 func configureAudioSession() {
+    // TODO: Add better error handling
+    // TODO: What if the app goes to the background?
     do {
         try AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio, options: [])
         try AVAudioSession.sharedInstance().setActive(true)
@@ -90,3 +96,20 @@ func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
     fetchRegexRules(textProcessor: textProcessor)
     return textProcessor.process(text:page.string!)
 }
+
+//
+// ************************* PDF Centric Functions *************************
+//
+
+  func getPageRange(for url: URL, selectedPage: Int) -> [Int] {
+    let totalPages = numberOfPages(in: url)
+    let previousPage = max(selectedPage - 1, 1)
+    let nextPage = min(selectedPage + 1, totalPages)
+
+    return Array((previousPage...nextPage).sorted())
+  }
+  func numberOfPages(in url: URL) -> Int {
+    guard let document = PDFDocument(url: url) else { return 0 }
+    return document.pageCount
+  }
+

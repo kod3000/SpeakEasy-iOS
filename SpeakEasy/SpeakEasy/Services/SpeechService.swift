@@ -7,10 +7,12 @@
 import Foundation
 import AVFoundation
 
-
 class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     private let synthesizer = AVSpeechSynthesizer()
     private var isSpeaking: Bool = false
+    private var readingText: String = ""
+    private var sentences = [String]()
+    private var currentSentenceIndex:Int = 0
 
     override init() {
         super.init()
@@ -21,8 +23,8 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
         if synthesizer.isSpeaking {
             synthesizer.stopSpeaking(at: .immediate)
         }
-        let utterance = AVSpeechUtterance(string: text)
-        synthesizer.speak(utterance)
+        processSentences(text: text)
+        readSentence()
     }
     
     func speaker()->AVSpeechSynthesizer{
@@ -32,6 +34,28 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     func currentlySpeaking() -> Bool{
         return isSpeaking
     }
+    
+    func displayText()->String{
+        return readingText
+    }
+    
+    private func processSentences(text: String){
+        sentences = text.components(separatedBy: ". ").map { $0 + "." }
+        currentSentenceIndex = 0
+    }
+    
+    private func readSentence() {
+        guard currentSentenceIndex < sentences.count else {
+            isSpeaking = false
+            return
+        }
+        let sentence = sentences[currentSentenceIndex]
+        readingText = sentence
+        let utterance = AVSpeechUtterance(string: sentence)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer.speak(utterance)
+        isSpeaking = true
+    }
 
     // Implement delegate methods to update isSpeaking
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
@@ -39,8 +63,13 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        isSpeaking = false
-    }
+         currentSentenceIndex += 1
+         if currentSentenceIndex < sentences.count {
+             readSentence()
+         } else {
+             isSpeaking = false
+         }
+     }
 
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
         isSpeaking = false
