@@ -78,12 +78,15 @@ struct PDFContentView: View {
                 TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
-                ScrollView(.horizontal, showsIndicators: false) {
-                       HStack {
-                        ForEach(getPageRange(for: pdfURL, selectedPage: selectedPage), id: \.self) { pageNumber in
+                 ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
                             VStack {
-                                pdfPageThumbnail(pdfURL: pdfURL, pageNumber: pageNumber)
+                                Image(systemName: "doc.text.image")
+                                    .resizable()
+                                    .scaledToFit()
                                     .frame(width: 60, height: 80)
+                                    .background(Color.gray.opacity(0.3)) 
                                     .cornerRadius(5)
                                     .padding(.bottom, 5)
                                 
