@@ -24,9 +24,13 @@ struct PDFContentView: View {
     VStack {
       if let pdfURL = pdfURL {
         if isLecturing {
-          HStack {
-            Text("Reading Page \(readFromPage)").padding()
-          }
+            Button(action: {
+                   // Your action goes here
+                   print("Reading Page \(readFromPage)")
+                self.selectedPage = readFromPage
+               }) {
+                   Text("Reading Page \(readFromPage)").padding()
+               }
         }
         PDFKitView(url: pdfURL, selectedPage: $selectedPage)
           .edgesIgnoringSafeArea(.all)
@@ -59,6 +63,7 @@ struct PDFContentView: View {
                             // its currently speaking
                             isReading = false
                             synthesizer.speaker().pauseSpeaking(at: .word)
+                              return
                           }
                           // TODO: add in a check to know if speaking or not
                           if let pdfDocument = PDFDocument(url: pdfURL),
