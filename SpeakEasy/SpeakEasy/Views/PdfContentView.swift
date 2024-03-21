@@ -34,7 +34,6 @@ struct PDFContentView: View {
                 self.selectedPage = readFromPage
                }) {
                    Text("Reading Page \(readFromPage)").padding()
-                       .foregroundColor(.white)
                }
         }
           if synthesizerManager.isSpeaking{
@@ -46,7 +45,7 @@ struct PDFContentView: View {
                           .lineSpacing(2)
                           .padding()
                   }
-                  .frame(height: 100)
+                  .frame(height: 120)
                   .background(Color.gray.opacity(0.1))
                   .cornerRadius(5)
                   .padding()
