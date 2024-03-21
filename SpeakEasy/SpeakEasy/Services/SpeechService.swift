@@ -24,6 +24,10 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
         let utterance = AVSpeechUtterance(string: text)
         synthesizer.speak(utterance)
     }
+    
+    func currentlySpeaking() -> Bool{
+        return isSpeaking
+    }
 
     // Implement delegate methods to update isSpeaking
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {

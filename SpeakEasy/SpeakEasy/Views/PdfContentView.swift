@@ -75,12 +75,6 @@ struct PDFContentView: View {
             if let pdfURL = pdfURL {
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
-                    HStack {
-                        Text("Go To Page : ")
-                        TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding()
-                    }
                     ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
@@ -88,8 +82,8 @@ struct PDFContentView: View {
                                Image(systemName: "doc.text.image")
                                    .resizable()
                                    .scaledToFit()
-                                   .frame(width: 60, height: 60)
-                                   .background(selectedPage == pageNumber ? Color.purple : Color.gray.opacity(0.3))
+                                   .frame(width: 60, height: 80)
+                                   .background(selectedPage == pageNumber ? Color.blue : Color.gray.opacity(0.3))
                                    .cornerRadius(10)
                                    .padding(.bottom, 5)
                                
@@ -103,7 +97,7 @@ struct PDFContentView: View {
                            .animation(.default, value: selectedPage)
                        }
                     }
-                }
+            
                 Button("Read Aloud") {
                     configureAudioSession()
                     // TODO: add in a check to know if speaking or not
@@ -112,8 +106,15 @@ struct PDFContentView: View {
                         // remove first line from text
                         let lines = text.components(separatedBy: "\n")
                         let newText = lines.dropFirst().joined(separator: "\n")
+                        
                         synthesizer.speak(newText)
                     }
+                }
+                HStack {
+                    Text("Go To Page : ").padding()
+                    TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
                 }
             } else {
                     TextField("Enter Pdf Url", text: $pdfURLEntered)
