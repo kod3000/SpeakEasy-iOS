@@ -43,7 +43,6 @@ struct PDFContentView: View {
                       Text("synthesizerManager.displayText")
                           .multilineTextAlignment(.leading)
                           .frame(minWidth: 0, maxWidth: .infinity)
-                          .foregroundColor(.black)
                           .lineSpacing(2)
                           .padding()
                   }
