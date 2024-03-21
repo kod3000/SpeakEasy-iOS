@@ -23,6 +23,7 @@
 		3D1197562BACCE32003621C9 /* PDFKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197552BACCE32003621C9 /* PDFKitView.swift */; };
 		3D1197582BACCEA0003621C9 /* PDFdownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197572BACCEA0003621C9 /* PDFdownload.swift */; };
 		3D11975A2BACD0C6003621C9 /* PDFPageThumbnails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197592BACD0C6003621C9 /* PDFPageThumbnails.swift */; };
+		3D11975D2BACE8C6003621C9 /* SynthesizerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D11975C2BACE8C6003621C9 /* SynthesizerManager.swift */; };
 		3DBC215F2BA9928E001B2898 /* SpeakEasyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC215E2BA9928E001B2898 /* SpeakEasyApp.swift */; };
 		3DBC21612BA9928E001B2898 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC21602BA9928E001B2898 /* ContentView.swift */; };
 		3DBC21632BA99292001B2898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DBC21622BA99292001B2898 /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		3D1197552BACCE32003621C9 /* PDFKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitView.swift; sourceTree = "<group>"; };
 		3D1197572BACCEA0003621C9 /* PDFdownload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFdownload.swift; sourceTree = "<group>"; };
 		3D1197592BACD0C6003621C9 /* PDFPageThumbnails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPageThumbnails.swift; sourceTree = "<group>"; };
+		3D11975C2BACE8C6003621C9 /* SynthesizerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesizerManager.swift; sourceTree = "<group>"; };
 		3DBC215B2BA9928E001B2898 /* SpeakEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeakEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBC215E2BA9928E001B2898 /* SpeakEasyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakEasyApp.swift; sourceTree = "<group>"; };
 		3DBC21602BA9928E001B2898 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -160,6 +162,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		3D11975B2BACE8AC003621C9 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				3D11975C2BACE8C6003621C9 /* SynthesizerManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		3D701D372BAAD88F00BEBA70 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +201,7 @@
 		3DBC215D2BA9928E001B2898 /* SpeakEasy */ = {
 			isa = PBXGroup;
 			children = (
+				3D11975B2BACE8AC003621C9 /* Managers */,
 				3D11974E2BAB277E003621C9 /* Utilities */,
 				3D11973F2BAAF9DB003621C9 /* Components */,
 				3D11973E2BAAF9D3003621C9 /* Services */,
@@ -375,6 +386,7 @@
 				3D1197412BAAFADB003621C9 /* Buttons.swift in Sources */,
 				3D1197452BAAFB9F003621C9 /* LocalFilesView.swift in Sources */,
 				3D1197502BAB27B6003621C9 /* General.swift in Sources */,
+				3D11975D2BACE8C6003621C9 /* SynthesizerManager.swift in Sources */,
 				3D1197582BACCEA0003621C9 /* PDFdownload.swift in Sources */,
 				3D1197472BAAFC2D003621C9 /* PdfContentView.swift in Sources */,
 				3D11974D2BAB16D0003621C9 /* SpeechService.swift in Sources */,

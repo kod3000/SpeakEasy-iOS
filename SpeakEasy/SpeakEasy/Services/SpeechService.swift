@@ -6,14 +6,19 @@
 //
 import Foundation
 import AVFoundation
+import RxSwift
 
 class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     private let synthesizer = AVSpeechSynthesizer()
     private var isSpeaking: Bool = false
-    private var readingText: String = ""
+
+
     private var sentences = [String]()
     private var currentSentenceIndex:Int = 0
 
+    var readingText = PublishSubject<String>()
+    private let disposeBag = DisposeBag()
+    
     override init() {
         super.init()
         synthesizer.delegate = self
@@ -34,11 +39,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
     func currentlySpeaking() -> Bool{
         return isSpeaking
     }
-    
-    func displayText()->String{
-        return readingText
-    }
-    
+        
     private func processSentences(text: String){
         sentences = text.components(separatedBy: ". ").map { $0 + "." }
         currentSentenceIndex = 0
@@ -50,7 +51,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
             return
         }
         let sentence = sentences[currentSentenceIndex]
-        readingText = sentence
+        readingText.onNext(sentence)
         let utterance = AVSpeechUtterance(string: sentence)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer.speak(utterance)

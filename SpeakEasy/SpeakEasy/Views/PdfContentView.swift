@@ -9,6 +9,8 @@ import AVFoundation
 import Alamofire
 import PDFKit
 import SwiftUI
+import RxSwift
+import RxCocoa
 
 struct PDFContentView: View {
   @State private var pdfURL: URL?
@@ -18,8 +20,12 @@ struct PDFContentView: View {
 
   @State private var isReading = false
   @State private var isLecturing = false  // know if we started the lecture or not
-  @State private var synthesizer = SpeechSynthesizer()
+    
+@ObservedObject private var synthesizerManager = SynthesizerManager()
 
+
+    
+    
   var body: some View {
     VStack {
       if let pdfURL = pdfURL {
@@ -32,10 +38,10 @@ struct PDFContentView: View {
                    Text("Reading Page \(readFromPage)").padding()
                }
         }
-          if isLecturing && isReading{
+          if synthesizerManager.isSpeaking{
               ScrollView {
-                  Text(synthesizer.displayText())
-                      .frame(minWidth: 0, maxWidth: .infinity)
+                  Text(synthesizerManager.displayText)
+                      .frame(minWidth: .infinity, maxWidth: .infinity)
                       .padding()
               }
               .frame(height: 100)
@@ -71,13 +77,12 @@ struct PDFContentView: View {
         }
           Button(action: {
               configureAudioSession()
-                          if synthesizer.currentlySpeaking() {
+                          if synthesizerManager.isSpeaking {
                             // its currently speaking
                             isReading = false
-                            synthesizer.speaker().pauseSpeaking(at: .word)
-                              return
+                            synthesizerManager.pauseSpeaking()
+                            return
                           }
-                          // TODO: add in a check to know if speaking or not
                           if let pdfDocument = PDFDocument(url: pdfURL),
                             let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1)
                           {
@@ -87,7 +92,7 @@ struct PDFContentView: View {
                             isLecturing = true
                             readFromPage = selectedPage
                             isReading.toggle()
-                            synthesizer.speak(freshPage)
+                            synthesizerManager.speak(freshPage)
                           }
                    }) {
                        Text(isLecturing ? (isReading ? "Pause Reading" : "Continue Reading") : "Read Aloud")
@@ -98,8 +103,6 @@ struct PDFContentView: View {
                            .cornerRadius(10)
                            .padding(5)
                    }
-          
-          
       } else {
         TextField("Enter Pdf Url", text: $pdfURLEntered)
           .textFieldStyle(RoundedBorderTextFieldStyle())
