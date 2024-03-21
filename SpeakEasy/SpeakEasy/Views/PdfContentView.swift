@@ -75,6 +75,14 @@ struct PDFContentView: View {
     var body: some View {
         VStack {
             if let pdfURL = pdfURL {
+                if selectedPage !== 1 && isLecturing {
+                    HStack {
+                    Text("Go To Page : ").padding()
+                    TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    }
+                }
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -115,19 +123,14 @@ struct PDFContentView: View {
                                 // remove first line from text
                                 let lines = text.components(separatedBy: "\n")
                                 let newText = lines.dropFirst().joined(separator: "\n")
-                                isLecturing.toggle()
+                                isLecturing = true
                                 isReading.toggle()
                                 synthesizer.speak(newText)
                             }
                         }.foregroundColor(.white)
                       }
                 
-                HStack {
-                    Text("Go To Page : ").padding()
-                    TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                }
+                
             } else {
                     TextField("Enter Pdf Url", text: $pdfURLEntered)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
