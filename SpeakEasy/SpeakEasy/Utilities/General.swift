@@ -94,7 +94,9 @@ func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
     //    return removeRefCit(text:page.string!)
     let textProcessor = TextProcessor()
     fetchRegexRules(textProcessor: textProcessor)
-    return textProcessor.process(text:page.string!)
+    let passOne = textProcessor.process(text:page.string!)
+    let passTwo = textProcessor.process(text:passOne)
+    return textProcessor.process(text:passTwo)
 }
 
 //
