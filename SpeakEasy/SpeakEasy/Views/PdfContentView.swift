@@ -37,11 +37,15 @@ struct PDFKitView: UIViewRepresentable {
 }
 class PDFDownloader {
     static func downloadPDF(from urlString: String, completion: @escaping (URL?) -> Void) {
-        guard let url = URL(string: urlString) else {
-            print("Invalid URL")
+
+        
+        guard let url = URL(string: urlString), url.pathExtension.lowercased() == "pdf" else {
+            print("Invalid URL or not a PDF")
             completion(nil)
             return
         }
+        
+        // TODO: Read mime type to ensure we are recieving a pdf file
         let destination: DownloadRequest.Destination = { _, _ in
             let directory = FileManager.default.temporaryDirectory
             let filePath = directory.appendingPathComponent(UUID().uuidString + ".pdf")
@@ -62,6 +66,7 @@ class PDFDownloader {
 
 struct PDFContentView: View {
     @State private var pdfURL: URL?
+    @State private var pdfURLEntered: String = "https://static.kod.us/files/swebok-v3.pdf"
     @State private var selectedPage: Int = 1
     @State private var synthesizer = SpeechSynthesizer()
     func numberOfPages(in url: URL) -> Int {
@@ -75,10 +80,13 @@ struct PDFContentView: View {
             if let pdfURL = pdfURL {
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
+                                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
+                                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                                         .padding()
                 ScrollView(.horizontal, showsIndicators: true) {
                                   HStack {
                                       ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
-                                          Text("Page \(pageNumber)")
+                                          Text("Pg \(pageNumber)")
                                               .padding()
                                               .onTapGesture {
                                                   self.selectedPage = pageNumber
@@ -87,9 +95,6 @@ struct PDFContentView: View {
                                   }
                               }
                 HStack {
-//                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
-//                         .textFieldStyle(RoundedBorderTextFieldStyle())
-//                         .padding()
                     Button("Read Aloud") {
                         configureAudioSession()
                         // Assuming PDFDocument is available here; add in a check to know if speaking or not
@@ -100,13 +105,17 @@ struct PDFContentView: View {
                     }
                 }
             } else {
-                Button("Download PDF") {
-                    PDFDownloader.downloadPDF(from: "https://static.kod.us/files/swebok-v3.pdf") { url in
-                        DispatchQueue.main.async {
-                            self.pdfURL = url
+                    TextField("Enter Pdf Url", text: $pdfURLEntered)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    Button("Download Pdf") {
+                        PDFDownloader.downloadPDF(from: pdfURLEntered) { url in
+                            DispatchQueue.main.async {
+                                self.pdfURL = url
+                            }
                         }
-                    }
                 }
+                
             }
         }
     }
