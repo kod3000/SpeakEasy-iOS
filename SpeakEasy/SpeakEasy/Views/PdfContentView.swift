@@ -75,41 +75,44 @@ struct PDFContentView: View {
             if let pdfURL = pdfURL {
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
-                TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                 ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        Text("Go To Page : ")
+                        TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .padding()
+                    }
+                    ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
-                            VStack {
-                                Image(systemName: "doc.text.image")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 60, height: 80)
-                                    .background(Color.gray.opacity(0.3)) 
-                                    .cornerRadius(5)
-                                    .padding(.bottom, 5)
-                                
-                                Text("Pg. \(pageNumber)")
-                            }
-                            .padding()
-                            .onTapGesture {
-                                self.selectedPage = pageNumber
-                            }
-                        }
+                           VStack {
+                               Image(systemName: "doc.text.image")
+                                   .resizable()
+                                   .scaledToFit()
+                                   .frame(width: 60, height: 80)
+                                   .background(selectedPage == pageNumber ? Color.blue : Color.gray.opacity(0.3))
+                                   .cornerRadius(5)
+                                   .padding(.bottom, 5)
+                               
+                               Text("Pg. \(pageNumber)")
+                                   .foregroundColor(selectedPage == pageNumber ? .blue : .primary)
+                           }
+                           .padding()
+                           .onTapGesture {
+                               self.selectedPage = pageNumber
+                           }
+                           .animation(.default, value: selectedPage)
+                       }
                     }
                 }
-                HStack {
-                    Button("Read Aloud") {
-                        configureAudioSession()
-                        // TODO: add in a check to know if speaking or not
-                        if let pdfDocument = PDFDocument(url: pdfURL),
-                           let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
-                            // remove first line from text
-                            let lines = text.components(separatedBy: "\n")
-                            let newText = lines.dropFirst().joined(separator: "\n")
-                            synthesizer.speak(newText)
-                        }
+                Button("Read Aloud") {
+                    configureAudioSession()
+                    // TODO: add in a check to know if speaking or not
+                    if let pdfDocument = PDFDocument(url: pdfURL),
+                       let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
+                        // remove first line from text
+                        let lines = text.components(separatedBy: "\n")
+                        let newText = lines.dropFirst().joined(separator: "\n")
+                        synthesizer.speak(newText)
                     }
                 }
             } else {
