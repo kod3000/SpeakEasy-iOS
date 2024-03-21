@@ -36,16 +36,17 @@ struct PDFContentView: View {
                 self.selectedPage = readFromPage
                }) {
                    Text("Reading Page \(readFromPage)").padding()
+                       .foregroundColor(.white)
                }
         }
           if synthesizerManager.isSpeaking{
               ScrollView {
                   Text(synthesizerManager.displayText)
-                      .frame(minWidth: .infinity, maxWidth: .infinity)
+                      .frame(minWidth: 0, maxWidth: .infinity)
                       .padding()
               }
               .frame(height: 100)
-              .foregroundColor(.white)
+              .foregroundColor(.black)
               .background(Color.gray.opacity(0.1))
               .cornerRadius(5)
               .padding()
