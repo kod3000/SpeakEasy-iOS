@@ -50,7 +50,7 @@ class SpeechSynthesizer: NSObject, AVSpeechSynthesizerDelegate {
             isSpeaking = false
             return
         }
-        let sentence = sentences[currentSentenceIndex]
+        let sentence = restoreSplitWords(text: sentences[currentSentenceIndex])
         readingText.onNext(sentence)
         let utterance = AVSpeechUtterance(string: sentence)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")

@@ -63,17 +63,12 @@ func fetchRegexRules(textProcessor:TextProcessor) {
     }
 }
 
-
-
-// TODO: Convert the regex patterns into a logic that comes from a server
 func removeRefCit(text: String) -> String {
     let regexPattern = "\\[[1-9]+\\*+,[^\\]]*\\]"
     guard let regex = try? NSRegularExpression(pattern: regexPattern) else { return text }
     let range = NSRange(text.startIndex..., in: text)
     return regex.stringByReplacingMatches(in: text, options: [], range: range, withTemplate: "\n\n")
 }
-
-
 
 func findPossibleSections(text: String) -> String {
     let regexPattern = "\\b\\d+(\\.\\d+)*\\b"
@@ -88,6 +83,37 @@ func findPossibleSections(text: String) -> String {
     }
     return modifiedText
 }
+func restoreSplitWords(text: String) -> String {
+    let regexPattern = "(\\w+)-(\\n?)(\\w+)"
+    guard let regex = try? NSRegularExpression(pattern: regexPattern) else { return text }
+    let range = NSRange(text.startIndex..., in: text)
+    
+    let matches = regex.matches(in: text, options: [], range: range).reversed() // Reverse to maintain indices
+    var modifiedText = text
+    
+    for match in matches {
+        guard let totalRange = Range(match.range, in: text),
+              let firstPartRange = Range(match.range(at: 1), in: text),
+              let secondPartRange = Range(match.range(at: 3), in: text) else {
+            continue
+        }
+        let firstPart = String(text[firstPartRange])
+        let secondPart = String(text[secondPartRange])
+        // Check for newline in the matched range
+        if let newlineRange = Range(match.range(at: 2), in: text), !text[newlineRange].isEmpty {
+            // Construct replacement string without newline
+            let replacement = firstPart + secondPart
+            // Calculate start index for replacement based on current state of modifiedText
+            if let startIndex = modifiedText.index(modifiedText.startIndex, offsetBy: totalRange.lowerBound.utf16Offset(in: text), limitedBy: modifiedText.endIndex),
+               let endIndex = modifiedText.index(modifiedText.startIndex, offsetBy: totalRange.upperBound.utf16Offset(in: text), limitedBy: modifiedText.endIndex) {
+                modifiedText.replaceSubrange(startIndex..<endIndex, with: replacement)
+            }
+        }
+    }
+    return modifiedText
+}
+
+
 
 func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
     guard let page = pdfDocument.page(at: pageIndex) else { return nil }
