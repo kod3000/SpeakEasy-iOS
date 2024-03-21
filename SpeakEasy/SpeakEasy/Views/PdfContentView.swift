@@ -32,12 +32,14 @@ struct PDFContentView: View {
                    Text("Reading Page \(readFromPage)").padding()
                }
         }
-          if isLecturing && isReading{              
+          if !isLecturing && !isReading{
               ScrollView {
                   Text(synthesizer.displayText())
+                      .frame(minWidth: 0, maxWidth: .infinity)
                       .padding()
               }
               .frame(height: 100)
+              .foregroundColor(.white)
               .background(Color.gray.opacity(0.1))
               .cornerRadius(5)
               .padding()
