@@ -100,19 +100,28 @@ struct PDFContentView: View {
                        }
                     }
                 }
-                Button(isLecturing ? (isReading ? "Pause Reading" : "Continue Reading" )  :"Read Aloud") {
-                    configureAudioSession()
-                    // TODO: add in a check to know if speaking or not
-                    if let pdfDocument = PDFDocument(url: pdfURL),
-                       let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
-                        // remove first line from text
-                        let lines = text.components(separatedBy: "\n")
-                        let newText = lines.dropFirst().joined(separator: "\n")
-                        isLecturing.toggle()
-                        isReading.toggle()
-                        synthesizer.speak(newText)
-                    }
-                }
+                
+                ZStack {
+                    Rectangle()
+                             .fill(Color(red: 68 / 255, green: 41 / 255, blue: 182 / 255))
+                             .frame(height: 60)
+                             .cornerRadius(10)
+                             .padding(5)
+                    Button(isLecturing ? (isReading ? "Pause Reading" : "Continue Reading" )  :"Read Aloud") {
+                            configureAudioSession()
+                            // TODO: add in a check to know if speaking or not
+                            if let pdfDocument = PDFDocument(url: pdfURL),
+                               let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
+                                // remove first line from text
+                                let lines = text.components(separatedBy: "\n")
+                                let newText = lines.dropFirst().joined(separator: "\n")
+                                isLecturing.toggle()
+                                isReading.toggle()
+                                synthesizer.speak(newText)
+                            }
+                        }.foregroundColor(.white)
+                      }
+                
                 HStack {
                     Text("Go To Page : ").padding()
                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
@@ -123,14 +132,20 @@ struct PDFContentView: View {
                     TextField("Enter Pdf Url", text: $pdfURLEntered)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
-                    Button("Download Pdf") {
-                        PDFDownloader.downloadPDF(from: pdfURLEntered) { url in
-                            DispatchQueue.main.async {
-                                self.pdfURL = url
+                ZStack {
+                           Rectangle()
+                               .fill(Color(red: 68 / 255, green: 41 / 255, blue: 182 / 255))
+                               .frame(height: 60)
+                               .cornerRadius(10)
+                               .padding(5)
+                    Button("Download PDF") {
+                            PDFDownloader.downloadPDF(from: pdfURLEntered) { url in
+                                DispatchQueue.main.async {
+                                    self.pdfURL = url
+                                }
                             }
-                        }
+                    }.foregroundColor(.white)
                 }
-                
             }
         }
     }
