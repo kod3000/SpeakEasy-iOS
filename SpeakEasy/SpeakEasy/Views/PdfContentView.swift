@@ -88,9 +88,9 @@ struct PDFContentView: View {
                                Image(systemName: "doc.text.image")
                                    .resizable()
                                    .scaledToFit()
-                                   .frame(width: 60, height: 80)
-                                   .background(selectedPage == pageNumber ? Color.blue : Color.gray.opacity(0.3))
-                                   .cornerRadius(5)
+                                   .frame(width: 60, height: 60)
+                                   .background(selectedPage == pageNumber ? Color.purple : Color.gray.opacity(0.3))
+                                   .cornerRadius(10)
                                    .padding(.bottom, 5)
                                
                                Text("Pg. \(pageNumber)")
