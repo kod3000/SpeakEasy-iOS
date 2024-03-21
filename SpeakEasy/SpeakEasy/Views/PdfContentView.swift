@@ -79,8 +79,8 @@ struct PDFContentView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
+                       HStack {
+                        ForEach(getPageRange(for: pdfURL, selectedPage: selectedPage), id: \.self) { pageNumber in
                             VStack {
                                 pdfPageThumbnail(pdfURL: pdfURL, pageNumber: pageNumber)
                                     .frame(width: 60, height: 80)
@@ -123,7 +123,14 @@ struct PDFContentView: View {
                 
             }
         }
-                }
+    }
+    func getPageRange(for url: URL, selectedPage: Int) -> [Int] {
+        let totalPages = numberOfPages(in: url)
+        let previousPage = max(selectedPage - 1, 1)
+        let nextPage = min(selectedPage + 1, totalPages)
+        
+        return Array((previousPage...nextPage).sorted())
+    }
 
     func numberOfPages(in url: URL) -> Int {
         guard let document = PDFDocument(url: url) else { return 0 }
