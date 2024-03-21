@@ -23,8 +23,6 @@ struct PDFContentView: View {
     
 @ObservedObject private var synthesizerManager = SynthesizerManager()
 
-
-    
     
   var body: some View {
     VStack {
@@ -40,16 +38,20 @@ struct PDFContentView: View {
                }
         }
           if synthesizerManager.isSpeaking{
-              ScrollView {
-                  Text(synthesizerManager.displayText)
-                      .frame(minWidth: 0, maxWidth: .infinity)
-                      .padding()
+              ZStack {
+                  ScrollView {
+                      Text("synthesizerManager.displayText")
+                          .multilineTextAlignment(.leading)
+                          .frame(minWidth: 0, maxWidth: .infinity)
+                          .foregroundColor(.black)
+                          .lineSpacing(2)
+                          .padding()
+                  }
+                  .frame(height: 100)
+                  .background(Color.gray.opacity(0.1))
+                  .cornerRadius(5)
+                  .padding()
               }
-              .frame(height: 100)
-              .foregroundColor(.black)
-              .background(Color.gray.opacity(0.1))
-              .cornerRadius(5)
-              .padding()
           }
         PDFKitView(url: pdfURL, selectedPage: $selectedPage)
           .edgesIgnoringSafeArea(.all)
