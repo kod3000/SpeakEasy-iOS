@@ -32,7 +32,7 @@ struct PDFContentView: View {
                    Text("Reading Page \(readFromPage)").padding()
                }
         }
-          if !isLecturing && !isReading{
+          if isLecturing && isReading{
               ScrollView {
                   Text(synthesizer.displayText())
                       .frame(minWidth: 0, maxWidth: .infinity)
