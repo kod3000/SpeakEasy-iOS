@@ -75,7 +75,7 @@ struct PDFContentView: View {
     var body: some View {
         VStack {
             if let pdfURL = pdfURL {
-                if selectedPage !== 1 && isLecturing {
+                if isLecturing {
                     HStack {
                     Text("Go To Page : ").padding()
                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
