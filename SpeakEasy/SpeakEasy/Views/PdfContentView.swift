@@ -97,7 +97,7 @@ struct PDFContentView: View {
                            .animation(.default, value: selectedPage)
                        }
                     }
-            
+                }
                 Button("Read Aloud") {
                     configureAudioSession()
                     // TODO: add in a check to know if speaking or not
@@ -106,7 +106,6 @@ struct PDFContentView: View {
                         // remove first line from text
                         let lines = text.components(separatedBy: "\n")
                         let newText = lines.dropFirst().joined(separator: "\n")
-                        
                         synthesizer.speak(newText)
                     }
                 }
