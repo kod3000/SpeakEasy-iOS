@@ -86,7 +86,9 @@ struct PDFContentView: View {
                 ScrollView(.horizontal, showsIndicators: true) {
                                   HStack {
                                       ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
-                                          Text("Pg \(pageNumber)")
+                                          
+                                          
+                                          Text("Pg. \(pageNumber)")
                                               .padding()
                                               .onTapGesture {
                                                   self.selectedPage = pageNumber
@@ -100,7 +102,10 @@ struct PDFContentView: View {
                         // Assuming PDFDocument is available here; add in a check to know if speaking or not
                         if let pdfDocument = PDFDocument(url: pdfURL),
                            let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
-                            synthesizer.speak(text)
+                            // remove first line from text
+                            let lines = text.components(separatedBy: "\n")
+                            let newText = lines.dropFirst().joined(separator: "\n")
+                            synthesizer.speak(newText)
                         }
                     }
                 }
