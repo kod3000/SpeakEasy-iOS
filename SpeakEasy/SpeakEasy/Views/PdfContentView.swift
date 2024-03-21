@@ -40,7 +40,7 @@ struct PDFContentView: View {
           if synthesizerManager.isSpeaking{
               ZStack {
                   ScrollView {
-                      Text("synthesizerManager.displayText")
+                      Text(synthesizerManager.displayText)
                           .multilineTextAlignment(.leading)
                           .frame(minWidth: 0, maxWidth: .infinity)
                           .lineSpacing(2)
