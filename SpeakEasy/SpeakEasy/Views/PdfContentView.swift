@@ -69,37 +69,37 @@ struct PDFContentView: View {
     @State private var pdfURLEntered: String = "https://static.kod.us/files/swebok-v3.pdf"
     @State private var selectedPage: Int = 1
     @State private var synthesizer = SpeechSynthesizer()
-    func numberOfPages(in url: URL) -> Int {
-        if let document = PDFDocument(url: url) {
-            return document.pageCount
-        }
-        return 0
-    }
+
     var body: some View {
         VStack {
             if let pdfURL = pdfURL {
                 PDFKitView(url: pdfURL, selectedPage: $selectedPage)
                     .edgesIgnoringSafeArea(.all)
-                                     TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
-                                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                                         .padding()
-                ScrollView(.horizontal, showsIndicators: true) {
-                                  HStack {
-                                      ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
-                                          
-                                          
-                                          Text("Pg. \(pageNumber)")
-                                              .padding()
-                                              .onTapGesture {
-                                                  self.selectedPage = pageNumber
-                                              }
-                                      }
-                                  }
-                              }
+                TextField("Enter page number", value: $selectedPage, formatter: NumberFormatter())
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(1..<numberOfPages(in: pdfURL) + 1, id: \.self) { pageNumber in
+                            VStack {
+                                pdfPageThumbnail(pdfURL: pdfURL, pageNumber: pageNumber)
+                                    .frame(width: 60, height: 80)
+                                    .cornerRadius(5)
+                                    .padding(.bottom, 5)
+                                
+                                Text("Pg. \(pageNumber)")
+                            }
+                            .padding()
+                            .onTapGesture {
+                                self.selectedPage = pageNumber
+                            }
+                        }
+                    }
+                }
                 HStack {
                     Button("Read Aloud") {
                         configureAudioSession()
-                        // Assuming PDFDocument is available here; add in a check to know if speaking or not
+                        // TODO: add in a check to know if speaking or not
                         if let pdfDocument = PDFDocument(url: pdfURL),
                            let text = extractText(from: pdfDocument, pageIndex: selectedPage - 1) {
                             // remove first line from text
@@ -123,6 +123,28 @@ struct PDFContentView: View {
                 
             }
         }
+                }
+
+    func numberOfPages(in url: URL) -> Int {
+        guard let document = PDFDocument(url: url) else { return 0 }
+        return document.pageCount
+    }
+
+    func pdfPageThumbnail(pdfURL: URL, pageNumber: Int, width: CGFloat = 60) -> some View {
+        guard let pdfDocument = PDFDocument(url: pdfURL),
+                let page = pdfDocument.page(at: pageNumber - 1) else {
+            return AnyView(EmptyView())
+        }
+
+        let pageSize = page.bounds(for: .mediaBox)
+        let scale = width / pageSize.width
+        let height = pageSize.height * scale
+        
+        return AnyView(
+            Image(uiImage: page.thumbnail(of: CGSize(width: width, height: height), for: .mediaBox))
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        )
     }
 }
 struct PdfContentView_Previews: PreviewProvider {
