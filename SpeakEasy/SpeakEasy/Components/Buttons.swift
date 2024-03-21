@@ -12,7 +12,7 @@ struct Btn: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color(red: 68 / 255, green: 41 / 255, blue: 182 / 255))
+                .fill(.blue)
                 .frame(height: 60)
                 .cornerRadius(10)
                 .padding(5)
