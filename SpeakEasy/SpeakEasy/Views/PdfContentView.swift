@@ -111,6 +111,7 @@ struct PDFContentView: View {
                 Image(systemName: "xmark")
                     .padding()
                     .foregroundColor(.primary)
+                    .background(Color.red.opacity(0.1))
         }
      }
   }
