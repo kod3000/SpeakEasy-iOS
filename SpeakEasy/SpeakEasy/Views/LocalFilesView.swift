@@ -38,21 +38,22 @@ struct DocumentPicker: UIViewControllerRepresentable {
     }
 }
 struct LocalFilesView: View {
-    @State private var showingDocumentPicker = false
+    @State private var showingDocumentPicker = true
     @Binding var pdfURL: URL?
 
+    // TODO : Make this process more elegant ... needless hitting of buttons
     var body: some View {
         VStack {
             Button(action: {
                 showingDocumentPicker = true
             }) {
-                Text("Select PDF")
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .padding(5)
+//                Text("Select PDF")
+//                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
+//                    .padding()
+//                    .foregroundColor(.white)
+//                    .background(Color.blue)
+//                    .cornerRadius(10)
+//                    .padding(5)
             }
             .sheet(isPresented: $showingDocumentPicker) {
                 DocumentPicker { url in
