@@ -2,7 +2,7 @@
 //  CoreDataManager.swift
 //  SpeakEasy
 //
-//  Created by username on 3/22/24.
+//  Created by Nestor Rivera (aka dany) on 3/22/24.
 //
 
 import Foundation
@@ -49,4 +49,37 @@ class CoreDataManager {
             return []
         }
     }
+    
+    func addPDFURLIfNeeded(urlString: String, completion: @escaping (Bool, Error?) -> Void) {
+        
+            if urlString == "" {
+                return;
+            }
+            let context = persistentContainer.viewContext
+            
+            // Create request to PDFHistory entity, filter by the urlString
+            let fetchRequest: NSFetchRequest<PDFHistory> = PDFHistory.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "urlString == %@", urlString)
+            
+            do {
+                // Perform check for existing entries
+                let results = try context.fetch(fetchRequest)
+                
+                if results.isEmpty {
+                    // none in database, insert a new PDFHistory object
+                    let newPDFHistory = PDFHistory(context: context)
+                    newPDFHistory.urlString = urlString
+                    newPDFHistory.access = Date()
+                    try context.save()
+                    completion(true, nil)
+                } else {
+                    // Not added because it already exists
+                    completion(false, nil)
+                }
+            } catch {
+                // Damn .. Error occurred
+                completion(false, error)
+            }
+        }
+    
 }

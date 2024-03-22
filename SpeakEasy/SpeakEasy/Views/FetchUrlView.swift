@@ -20,6 +20,15 @@ struct FetchUrlView: View {
                  PDFDownloaderSave.downloadPDF(from: pdfURLEntered) { url in
                      DispatchQueue.main.async {
                          self.pdfURL = url
+                         CoreDataManager.shared.addPDFURLIfNeeded(urlString: url?.absoluteString ??  "") { added, error in
+                             if let error = error {
+                                 print("Error: \(error)")
+                             } else if added {
+                                 print("URL was added to the database.")
+                             } else {
+                                 print("URL was already in the database.")
+                             }
+                         }
                      }
                  }
              }) {
