@@ -9,21 +9,29 @@ import SwiftUI
 import Alamofire
 
 struct ContentView: View {
+
+        @State private var pdfURL: URL?
+     @State private var selectedPage: Int = 1
+     @State private var readFromPage: Int = 1
+
+     @State private var isReading = false
+     @State private var isLecturing = false
+     
+     @ObservedObject private var synthesizerManager = SynthesizerManager()
+    
     var body: some View {
         NavigationView {
             VStack {
                 NavigationLink(destination: LocalFilesView()) {
                     Btn(title: "Select Local File")
                 }
-                NavigationLink(destination: FetchUrlView()) {
+                NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
                            Btn(title:"Select URL")
                        }
                 NavigationLink(destination: HistoryView()) {
                          Btn(title:"See last viewed files")
                      }
-                NavigationLink(destination: PDFContentView()) {
-                         Btn(title:"Test PDF View")
-                     }
+                
             }
             .padding()
         }

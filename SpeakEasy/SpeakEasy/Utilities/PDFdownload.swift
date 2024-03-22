@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 
-class PDFDownloader {
+class PDFDownloaderNoSave {
   static func downloadPDF(from urlString: String, completion: @escaping (URL?) -> Void) {
 
     guard let url = URL(string: urlString), url.pathExtension.lowercased() == "pdf" else {
@@ -35,4 +35,42 @@ class PDFDownloader {
       }
     }
   }
+}
+
+class PDFDownloaderSave {
+    static func downloadPDF(from urlString: String, completion: @escaping (URL?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        let downloadTask = URLSession.shared.downloadTask(with: url) { tempLocalUrl, response, error in
+            if let tempLocalUrl = tempLocalUrl, error == nil {
+                // Success
+                do {
+                    let fileManager = FileManager.default
+                    let documentsURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+                    let savedURL = documentsURL.appendingPathComponent(url.lastPathComponent)
+                    try fileManager.moveItem(at: tempLocalUrl, to: savedURL)
+                    
+                    DispatchQueue.main.async {
+                        completion(savedURL)
+                    }
+                } catch {
+                    print("Could not save file: \(error)")
+                    DispatchQueue.main.async {
+                        // An error occurred
+                        completion(nil)
+                    }
+                }
+            } else {
+                print("Download Error: \(error?.localizedDescription ?? "Unknown Error")")
+                DispatchQueue.main.async {
+                    // An error occurred
+                    completion(nil)
+                }
+            }
+        }
+        downloadTask.resume()
+    }
 }
