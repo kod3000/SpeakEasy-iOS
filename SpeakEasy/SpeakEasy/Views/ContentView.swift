@@ -9,8 +9,7 @@ import SwiftUI
 import Alamofire
 
 struct ContentView: View {
-
-        @State private var pdfURL: URL?
+    @State private var pdfURL: URL?
      @State private var selectedPage: Int = 1
      @State private var readFromPage: Int = 1
 
@@ -22,15 +21,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: LocalFilesView()) {
+                NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
                     Btn(title: "Select Local File")
                 }
                 NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
                            Btn(title:"Select URL")
-                       }
+               }
                 NavigationLink(destination: HistoryView()) {
                          Btn(title:"See last viewed files")
-                     }
+                 }
             }
             .padding()
         }

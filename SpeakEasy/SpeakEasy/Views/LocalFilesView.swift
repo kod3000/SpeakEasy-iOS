@@ -39,22 +39,34 @@ struct DocumentPicker: UIViewControllerRepresentable {
 }
 struct LocalFilesView: View {
         @State private var showingDocumentPicker = false
-        
-        var body: some View {
-            Button("Select PDF") {
+    @Binding var pdfURL: URL?
+
+    var body: some View {
+        VStack {
+            Button(action: {
                 showingDocumentPicker = true
+            }) {
+                Text("Select PDF")
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .padding(5)
             }
             .sheet(isPresented: $showingDocumentPicker) {
                 DocumentPicker { url in
                     print("Selected document at \(url)")
-                    // Here you could do something with the selected PDF file URL
+                    self.pdfURL = url
                 }
             }
         }
+    }
 }
 
 struct LocalFilesView_Previews: PreviewProvider {
+    @State static var pdfURL: URL? = nil
     static var previews: some View {
-        LocalFilesView()
+        LocalFilesView(pdfURL: $pdfURL)
     }
 }

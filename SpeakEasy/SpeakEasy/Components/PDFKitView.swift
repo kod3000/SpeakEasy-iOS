@@ -2,7 +2,7 @@
 //  PDFKitView.swift
 //  SpeakEasy
 //
-//  Created by username on 3/21/24.
+//  Created by Nestor Rivera (aka dany) on 3/21/24.
 //
 
 import SwiftUI
