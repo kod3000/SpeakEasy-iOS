@@ -19,26 +19,28 @@ struct ContentView: View {
      @ObservedObject private var synthesizerManager = SynthesizerManager()
     
     var body: some View {
+        NavigationView {
+            
             VStack {
-                      if let pdfURL = pdfURL {
-                          PDFContentView(pdfURL: pdfURL, selectedPage: $selectedPage, readFromPage: $readFromPage, isReading: $isReading, isLecturing: $isLecturing, synthesizerManager: synthesizerManager)
-                      } else {
-                          NavigationView {
-                            VStack {
-                                  NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
-                                      Btn(title:"Select URL")
-                                  }
-                                  NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
-                                      Btn(title: "Select Local File")
-                                  }
-                                  NavigationLink(destination: HistoryView()) {
-                                      Btn(title:"See last viewed files")
-                                  }
-                              }
-                          }
-                          }
-                      }
-                        .padding()
+                if let pdfURL = pdfURL {
+                    PDFContentView(pdfURL: pdfURL, selectedPage: $selectedPage, readFromPage: $readFromPage, isReading: $isReading, isLecturing: $isLecturing, synthesizerManager: synthesizerManager)
+                } else {
+                    VStack {
+                        NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
+                            Btn(title:"Select URL")
+                        }
+                        NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
+                            Btn(title: "Select Local File")
+                        }
+                        NavigationLink(destination: HistoryView()) {
+                            Btn(title:"See last viewed files")
+                        }
+                    }
+                    
+                }
+            }
+            .padding()
+        }
                   }
         
     
