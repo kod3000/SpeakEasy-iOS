@@ -19,7 +19,6 @@ struct ContentView: View {
      @ObservedObject private var synthesizerManager = SynthesizerManager()
     
     var body: some View {
-            
             VStack {
                 if let pdfURL = pdfURL {
                     PDFContentView(pdfURL: pdfURL, selectedPage: $selectedPage, readFromPage: $readFromPage, isReading: $isReading, isLecturing: $isLecturing, synthesizerManager: synthesizerManager,
@@ -27,7 +26,6 @@ struct ContentView: View {
                     )
                 } else {
                     NavigationView {
-
                     VStack {
                         NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
                             Btn(title:"Select URL")
@@ -44,10 +42,8 @@ struct ContentView: View {
             }
             .padding()
             }
-            
     // TODO: Implement logic for history (last used) view
     // TODO: create backend for regex
-
 }
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
