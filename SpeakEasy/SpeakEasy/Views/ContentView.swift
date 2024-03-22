@@ -21,15 +21,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
+                           Btn(title:"Select URL")
+                }
                 NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
                     Btn(title: "Select Local File")
                 }
-                NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
-                           Btn(title:"Select URL")
-               }
                 NavigationLink(destination: HistoryView()) {
                          Btn(title:"See last viewed files")
-                 }
+                }
             }
             .padding()
         }

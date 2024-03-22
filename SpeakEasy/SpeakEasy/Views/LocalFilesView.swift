@@ -38,7 +38,7 @@ struct DocumentPicker: UIViewControllerRepresentable {
     }
 }
 struct LocalFilesView: View {
-        @State private var showingDocumentPicker = false
+    @State private var showingDocumentPicker = false
     @Binding var pdfURL: URL?
 
     var body: some View {
