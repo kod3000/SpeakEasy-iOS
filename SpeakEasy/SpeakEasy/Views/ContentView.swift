@@ -19,12 +19,15 @@ struct ContentView: View {
      @ObservedObject private var synthesizerManager = SynthesizerManager()
     
     var body: some View {
-        NavigationView {
             
             VStack {
                 if let pdfURL = pdfURL {
-                    PDFContentView(pdfURL: pdfURL, selectedPage: $selectedPage, readFromPage: $readFromPage, isReading: $isReading, isLecturing: $isLecturing, synthesizerManager: synthesizerManager)
+                    PDFContentView(pdfURL: pdfURL, selectedPage: $selectedPage, readFromPage: $readFromPage, isReading: $isReading, isLecturing: $isLecturing, synthesizerManager: synthesizerManager,
+                        onClose: { self.pdfURL = nil }
+                    )
                 } else {
+                    NavigationView {
+
                     VStack {
                         NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
                             Btn(title:"Select URL")
@@ -36,14 +39,12 @@ struct ContentView: View {
                             Btn(title:"See last viewed files")
                         }
                     }
-                    
+                    }
                 }
             }
             .padding()
-        }
-                  }
-        
-    
+            }
+            
     // TODO: Implement logic for history (last used) view
     // TODO: create backend for regex
 

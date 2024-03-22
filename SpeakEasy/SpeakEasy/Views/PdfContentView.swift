@@ -21,8 +21,10 @@ struct PDFContentView: View {
   @Binding var isLecturing: Bool
   var synthesizerManager: SynthesizerManager
   @State private var pdfURLEntered: String = "https://static.kod.us/files/swebok-v3.pdf"
+    var onClose: () -> Void
 
   var body: some View {
+     ZStack(alignment: .topTrailing) {
     VStack {
       if isLecturing {
         Button(action: {
@@ -103,6 +105,14 @@ struct PDFContentView: View {
           .padding(5)
       }
     }
+      Button(action: {
+          onClose()
+      }) {
+                Image(systemName: "xmark")
+                    .padding()
+                    .foregroundColor(.primary)
+        }
+     }
   }
 }
 struct PDFContentView_Previews: PreviewProvider {
@@ -117,7 +127,8 @@ struct PDFContentView_Previews: PreviewProvider {
       readFromPage: .constant(1),
       isReading: .constant(false),
       isLecturing: .constant(false),
-      synthesizerManager: synthesizerManager
+      synthesizerManager: synthesizerManager,
+      onClose: { print("no action in previews my dudes..") }
     )
   }
 }
