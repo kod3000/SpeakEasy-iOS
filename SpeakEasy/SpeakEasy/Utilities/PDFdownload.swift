@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-
+// TODO: Implement feature that user does not want to save any pdf docs
 class PDFDownloaderNoSave {
   static func downloadPDF(from urlString: String, completion: @escaping (URL?) -> Void) {
 
@@ -39,11 +39,13 @@ class PDFDownloaderNoSave {
 
 class PDFDownloaderSave {
     static func downloadPDF(from urlString: String, completion: @escaping (URL?) -> Void) {
-        guard let url = URL(string: urlString) else {
+        guard let url = URL(string: urlString), url.pathExtension.lowercased() == "pdf" else {
+            print("Invalid URL or not a PDF")
             completion(nil)
             return
         }
-        
+        // TODO: Read mime type to ensure we are receiving a PDF file
+
         let downloadTask = URLSession.shared.downloadTask(with: url) { tempLocalUrl, response, error in
             if let tempLocalUrl = tempLocalUrl, error == nil {
                 // Success
@@ -51,6 +53,12 @@ class PDFDownloaderSave {
                     let fileManager = FileManager.default
                     let documentsURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
                     let savedURL = documentsURL.appendingPathComponent(url.lastPathComponent)
+                    
+                    // Check if file exists, delete it if it does
+                    if fileManager.fileExists(atPath: savedURL.path) {
+                        try fileManager.removeItem(at: savedURL)
+                    }
+
                     try fileManager.moveItem(at: tempLocalUrl, to: savedURL)
                     
                     DispatchQueue.main.async {
@@ -74,3 +82,4 @@ class PDFDownloaderSave {
         downloadTask.resume()
     }
 }
+
