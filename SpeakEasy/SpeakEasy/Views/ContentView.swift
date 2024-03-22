@@ -19,27 +19,33 @@ struct ContentView: View {
      @ObservedObject private var synthesizerManager = SynthesizerManager()
     
     var body: some View {
-        NavigationView {
             VStack {
-                NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
-                           Btn(title:"Select URL")
-                }
-                NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
-                    Btn(title: "Select Local File")
-                }
-                NavigationLink(destination: HistoryView()) {
-                         Btn(title:"See last viewed files")
-                }
-            }
-            .padding()
-        }
-    }
-    // TODO: Implement logic for url view
-    // TODO: Implement logic for local file view
+                      if let pdfURL = pdfURL {
+                          PDFContentView(pdfURL: pdfURL, selectedPage: $selectedPage, readFromPage: $readFromPage, isReading: $isReading, isLecturing: $isLecturing, synthesizerManager: synthesizerManager)
+                      } else {
+                          NavigationView {
+                              
+                              VStack {
+                                  NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
+                                      Btn(title:"Select URL")
+                                  }
+                                  NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
+                                      Btn(title: "Select Local File")
+                                  }
+                                  NavigationLink(destination: HistoryView()) {
+                                      Btn(title:"See last viewed files")
+                                  }
+                              }
+                          }
+                          }
+                      }
+                        .padding()
+                  }
+        
+    
     // TODO: Implement logic for history (last used) view
     // TODO: Missing the logic of loading in the file to
     // be read.
-    // TODO: Missing the display logic for the text itself
     // TODO: create backend for regex
 
 }
