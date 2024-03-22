@@ -24,8 +24,7 @@ struct ContentView: View {
                           PDFContentView(pdfURL: pdfURL, selectedPage: $selectedPage, readFromPage: $readFromPage, isReading: $isReading, isLecturing: $isLecturing, synthesizerManager: synthesizerManager)
                       } else {
                           NavigationView {
-                              
-                              VStack {
+                            VStack {
                                   NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
                                       Btn(title:"Select URL")
                                   }
@@ -44,8 +43,6 @@ struct ContentView: View {
         
     
     // TODO: Implement logic for history (last used) view
-    // TODO: Missing the logic of loading in the file to
-    // be read.
     // TODO: create backend for regex
 
 }
