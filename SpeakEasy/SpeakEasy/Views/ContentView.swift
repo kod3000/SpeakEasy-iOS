@@ -31,7 +31,6 @@ struct ContentView: View {
                 NavigationLink(destination: HistoryView()) {
                          Btn(title:"See last viewed files")
                      }
-                
             }
             .padding()
         }
