@@ -88,9 +88,7 @@ struct HistoryView: View {
       .navigationTitle("History")
       .onAppear(perform: loadHistory)
       .sheet(isPresented: $isEditing) {
-          print(isEditing)
           if let editingItem = editingItem {
-              print(editingItem)
 
               EditView(editingItem: editingItem) { newFriendlyName in
                   if let index = historyItems.firstIndex(where: { $0.id == editingItem.id }) {
@@ -132,9 +130,11 @@ struct EditView: View {
         self.editingItem = editingItem
         self.onDone = onDone
         _friendlyName = State(initialValue: editingItem.friendlyName ?? "")
+        print("Initializing EditView with friendlyName: \(self.friendlyName)")
     }
 
     var body: some View {
+        print("EditView body is being executed")
         VStack {
             TextField("Name", text: $friendlyName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
