@@ -5,16 +5,8 @@
 //  Created by Nestor Rivera (aka dany) on 3/20/24.
 //
 
-// TODO: Here we would have a history of
-// the pdf files the user has played.
-// clicking on a url item sets it as the active pdf
-//                        Text(item.urlString ?? "Unknown Location") // debug
-//                            .font(.subheadline)
-//                            .foregroundColor(.gray)
-
 import SwiftUI
 
-// Here we would have a history of the pdf files the user has played. history should not repeat the same file
 
 struct HistoryView: View {
   @State private var historyItems: [PDFHistory] = []
@@ -23,6 +15,7 @@ struct HistoryView: View {
   @Binding var pdfURL: URL?
 
   private func loadHistory() {
+    historyItems = [] // lets reset the array
     historyItems = CoreDataManager.shared.fetchPDFHistory()
   }
 
@@ -90,20 +83,15 @@ struct HistoryView: View {
                     EditView(editingItem: item) { updatedName in
                         // update database
                         item.friendlyName = updatedName
-                        CoreDataManager.shared.updatePDFHistory(item) { updated, error in
+                        CoreDataManager.shared.updatePDFHistory(item, updateAcces: false) { updated, error in
                                     if let error = error {
                                         print("Error: \(error)")
                                     } else if updated {
-                                        print("URL was updated to the database.")
+                                        print("Entry was updated in the database.")
                                     } else {
                                         print("Something else happened in the database.")
                                     }
                                 }
-                        // update display
-                        if let index = historyItems.firstIndex(where: { $0.id == item.id }) {
-                            print("updated display")
-                            historyItems[index].friendlyName = updatedName
-                        }
                         self.editingItem = nil
                         self.loadHistory()
                     }
@@ -135,7 +123,9 @@ struct EditView: View {
 
     var body: some View {
         VStack {
-            Text("Name : ").bold().font(.largeTitle)
+            Text("Document Name").bold().font(.largeTitle)
+                .multilineTextAlignment(.leading)
+
             TextField("Name", text: $friendlyName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .multilineTextAlignment(.center)

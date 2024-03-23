@@ -66,16 +66,18 @@ class CoreDataManager {
     }
   }
 
-  func updatePDFHistory(_ pdfHistory: PDFHistory, completion: @escaping (Bool, Error?) -> Void) {
+    func updatePDFHistory(_ pdfHistory: PDFHistory, updateAcces: Bool, completion: @escaping (Bool, Error?) -> Void) {
     context.perform {
-      pdfHistory.access = Date()
-
-      do {
+    
+        if updateAcces {
+            pdfHistory.access = Date()
+        }
+        do {
         try self.context.save()
         completion(true, nil)
-      } catch {
+        } catch {
         completion(false, error)
-      }
+        }
     }
   }
 
