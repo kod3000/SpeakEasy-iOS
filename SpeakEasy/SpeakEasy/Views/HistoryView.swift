@@ -88,22 +88,24 @@ struct HistoryView: View {
       .navigationTitle("History")
       .onAppear(perform: loadHistory)
       .sheet(isPresented: $isEditing) {
-        if let editingItem = editingItem {
-          EditView(editingItem: editingItem) { updatedItem in
-            // updated item
-              CoreDataManager.shared.updatePDFHistory(updatedItem) { updated, error in
-                  if let error = error {
-                      print("Error: \(error)")
-                  } else if updated {
-                      print("URL was updated to the database.")
-                  } else {
-                      print("Something else happened in the database.")
+          if let editingItem = editingItem {
+              EditView(editingItem: editingItem) { newFriendlyName in
+                  if let index = historyItems.firstIndex(where: { $0.id == editingItem.id }) {
+                      historyItems[index].friendlyName = newFriendlyName
+                      editingItem.friendlyName = newFriendlyName
+                      CoreDataManager.shared.updatePDFHistory(editingItem) { updated, error in
+                           if let error = error {
+                               print("Error: \(error)")
+                           } else if updated {
+                               print("Update entry in database.")
+                           } else {
+                               print("Something else happened in the database.")
+                           }
+                       }
                   }
+                  isEditing = false
               }
-            self.isEditing = false
-            self.loadHistory()
           }
-        }
       }
     }
   }
@@ -119,36 +121,32 @@ struct HistoryView: View {
 
 // move to components when completed ..
 struct EditView: View {
-    var editingItem: PDFHistory
-    var onDone: (PDFHistory) -> Void
     @State private var friendlyName: String
+    let editingItem: PDFHistory
+    let onDone: (String) -> Void
 
-    init(editingItem: PDFHistory, onDone: @escaping (PDFHistory) -> Void) {
+    init(editingItem: PDFHistory, onDone: @escaping (String) -> Void) {
         self.editingItem = editingItem
         self.onDone = onDone
-        _friendlyName = State(initialValue: editingItem.friendlyName ?? "") // Initialize with current friendlyName
+        _friendlyName = State(initialValue: editingItem.friendlyName ?? "")
     }
 
     var body: some View {
         VStack {
-            TextField("Name", text: $friendlyName) // Bind to the @State property
+            TextField("Name", text: $friendlyName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-
-            Button(action: {
-                editingItem.friendlyName = friendlyName // Update the original item
-                onDone(editingItem) // Call the closure to signal done
-            }) {
-                Text("Save")
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .padding(.horizontal, 5)
+            
+            Button("Save") {
+                // Instead of directly manipulating editingItem here,
+                // Pass back the new friendlyName through onDone closure.
+                onDone(friendlyName)
             }
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.blue)
+            .cornerRadius(10)
         }
-        .padding()
     }
 }
 
