@@ -10,9 +10,9 @@ import CoreData
 
 class CoreDataManager {
     static let shared = CoreDataManager()
-    private let persistentContainer: NSPersistentContainer
+    let persistentContainer: NSPersistentContainer
 
-    private init() {
+    init() {
         persistentContainer = NSPersistentContainer(name: "PDFHistoryModel")
         persistentContainer.loadPersistentStores { (_, error) in
             if let error = error {
