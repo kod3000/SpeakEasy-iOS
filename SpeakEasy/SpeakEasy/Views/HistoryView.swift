@@ -63,7 +63,9 @@ struct HistoryView: View {
                 }
                 .tint(.blue)
                 Button("Edit") {
+                    print("setting edit item")
                   self.editingItem = item
+                print(self.editingItem)
                   self.isEditing = true
                 }
                 .tint(.yellow)
@@ -88,7 +90,7 @@ struct HistoryView: View {
       .navigationTitle("History")
       .onAppear(perform: loadHistory)
       .sheet(isPresented: $isEditing) {
-          if let editingItem = editingItem {
+          if let editingItem = self.editingItem {
 
               EditView(editingItem: editingItem) { newFriendlyName in
                   if let index = historyItems.firstIndex(where: { $0.id == editingItem.id }) {
