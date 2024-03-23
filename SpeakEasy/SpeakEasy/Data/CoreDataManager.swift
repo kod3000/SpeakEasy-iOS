@@ -73,8 +73,8 @@ class CoreDataManager {
                     let newPDFHistory = PDFHistory(context: context)
                     newPDFHistory.urlString = url.absoluteString
                     newPDFHistory.access = Date()
-                    newPDFHistory.friendlyName = url.relativeString
-                    newPDFHistory.fileName = url.relativeString
+                    newPDFHistory.friendlyName = url.lastPathComponent 
+                    newPDFHistory.fileName = url.standardizedFileURL.lastPathComponent
                     try context.save()
                     completion(true, nil)
                 } else {
