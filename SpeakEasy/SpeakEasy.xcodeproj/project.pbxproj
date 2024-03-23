@@ -11,7 +11,6 @@
 		3D1197382BAAF02C003621C9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3D1197372BAAF02C003621C9 /* RxCocoa */; };
 		3D11973A2BAAF02C003621C9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3D1197392BAAF02C003621C9 /* RxSwift */; };
 		3D1197412BAAFADB003621C9 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197402BAAFADB003621C9 /* Buttons.swift */; };
-		3D1197432BAAFB41003621C9 /* HistoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197422BAAFB41003621C9 /* HistoryList.swift */; };
 		3D1197452BAAFB9F003621C9 /* LocalFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197442BAAFB9F003621C9 /* LocalFilesView.swift */; };
 		3D1197472BAAFC2D003621C9 /* PdfContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197462BAAFC2D003621C9 /* PdfContentView.swift */; };
 		3D1197492BAAFF73003621C9 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1197482BAAFF73003621C9 /* HistoryView.swift */; };
@@ -55,7 +54,6 @@
 /* Begin PBXFileReference section */
 		3D1197302BAAEEF4003621C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3D1197402BAAFADB003621C9 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
-		3D1197422BAAFB41003621C9 /* HistoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryList.swift; sourceTree = "<group>"; };
 		3D1197442BAAFB9F003621C9 /* LocalFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFilesView.swift; sourceTree = "<group>"; };
 		3D1197462BAAFC2D003621C9 /* PdfContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfContentView.swift; sourceTree = "<group>"; };
 		3D1197482BAAFF73003621C9 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 			isa = PBXGroup;
 			children = (
 				3D1197402BAAFADB003621C9 /* Buttons.swift */,
-				3D1197422BAAFB41003621C9 /* HistoryList.swift */,
 				3D1197552BACCE32003621C9 /* PDFKitView.swift */,
 				3D1197592BACD0C6003621C9 /* PDFPageThumbnails.swift */,
 			);
@@ -407,7 +404,6 @@
 				3D11974D2BAB16D0003621C9 /* SpeechService.swift in Sources */,
 				3D11974B2BAB0047003621C9 /* FetchUrlView.swift in Sources */,
 				3D1197562BACCE32003621C9 /* PDFKitView.swift in Sources */,
-				3D1197432BAAFB41003621C9 /* HistoryList.swift in Sources */,
 				3DBC215F2BA9928E001B2898 /* SpeakEasyApp.swift in Sources */,
 				3D11975A2BACD0C6003621C9 /* PDFPageThumbnails.swift in Sources */,
 				3D1197602BADA2A7003621C9 /* PDFHistoryModel.xcdatamodeld in Sources */,

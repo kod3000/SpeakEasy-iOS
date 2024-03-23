@@ -33,7 +33,7 @@ struct ContentView: View {
                         NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
                             Btn(title: "Select Local File")
                         }
-                        NavigationLink(destination: HistoryView()) {
+                        NavigationLink(destination: HistoryView(pdfURL: $pdfURL)) {
                             Btn(title:"See last viewed files")
                         }
                     }
