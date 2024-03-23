@@ -2,6 +2,8 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21H1123" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PDFHistory" representedClassName="PDFHistory" syncable="YES" codeGenerationType="class">
         <attribute name="access" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fileName" optional="YES" attributeType="String"/>
+        <attribute name="friendlyName" optional="YES" attributeType="String"/>
         <attribute name="urlString" optional="YES" attributeType="String"/>
     </entity>
 </model>

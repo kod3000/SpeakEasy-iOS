@@ -20,7 +20,7 @@ struct FetchUrlView: View {
                  PDFDownloaderSave.downloadPDF(from: pdfURLEntered) { url in
                      DispatchQueue.main.async {
                          self.pdfURL = url
-                         CoreDataManager.shared.addPDFURLIfNeeded(urlString: url?.absoluteString ??  "") { added, error in
+                         CoreDataManager.shared.addPDFURLIfNeeded(url: (url)!) { added, error in
                              if let error = error {
                                  print("Error: \(error)")
                              } else if added {
@@ -40,7 +40,7 @@ struct FetchUrlView: View {
                      .cornerRadius(10)
                      .padding(5)
              }
-         }
+         }.padding()
      }
 }
 

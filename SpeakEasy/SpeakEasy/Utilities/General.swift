@@ -114,14 +114,20 @@ func restoreSplitWords(text: String) -> String {
 }
 
 
-
+// Utility For PDF text extration, and perform cleanup on text itself
 func extractText(from pdfDocument: PDFDocument, pageIndex: Int) -> String? {
     guard let page = pdfDocument.page(at: pageIndex) else { return nil }
-    //    return removeRefCit(text:page.string!)
+    // create the text processor
     let textProcessor = TextProcessor()
+    // pass in the text processor to gather rules for formating
+    // keep in mind some rules are single pass for performance
+    // later they can be applied to the display text for more fine grain
     fetchRegexRules(textProcessor: textProcessor)
     return textProcessor.process(text:page.string!)
+    //    return removeRefCit(text:page.string!)
 }
+
+
 
 //
 // ************************* PDF Centric Functions *************************

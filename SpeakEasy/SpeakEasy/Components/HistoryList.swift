@@ -21,10 +21,39 @@ struct ListHistoryView: View {
     // history should not repeat the same file
     // clicking on a url item sets it as the active pdf
     var body: some View {
-        List(historyItems, id: \.self) { item in
-            Text(item.urlString ?? "Unknown URL")
+        Group {
+            if historyItems.isEmpty {
+                // Display a message when there is no history
+                Text("No history as of yet")
+                    .foregroundColor(.gray)
+                    .italic()
+            } else {
+                // The original List view for displaying history items
+                List(historyItems, id: \.self) { item in
+                    VStack(alignment: .leading) {
+                        Text(item.urlString ?? "Unknown URL")
+                        if let accessDate = item.access {
+                            Text("Accessed: \(itemFormatter.string(from: accessDate))")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        } else {
+                            Text("Access date not available")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+            }
         }
         .onAppear(perform: loadHistory)
     }
+    
+    // Utility to format the date
+    private let itemFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        return formatter
+    }()
     
 }

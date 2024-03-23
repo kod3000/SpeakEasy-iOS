@@ -25,6 +25,8 @@ class CoreDataManager {
         let context = persistentContainer.viewContext
         let pdfHistory = PDFHistory(context: context)
         pdfHistory.urlString = url.absoluteString
+        pdfHistory.friendlyName = url.relativeString
+        pdfHistory.fileName = url.relativeString
         pdfHistory.access = Date()
 
         do {
@@ -50,16 +52,16 @@ class CoreDataManager {
         }
     }
     
-    func addPDFURLIfNeeded(urlString: String, completion: @escaping (Bool, Error?) -> Void) {
+    func addPDFURLIfNeeded(url: URL, completion: @escaping (Bool, Error?) -> Void) {
         
-            if urlString == "" {
+            if url.absoluteString == "" {
                 return;
             }
             let context = persistentContainer.viewContext
             
             // Create request to PDFHistory entity, filter by the urlString
             let fetchRequest: NSFetchRequest<PDFHistory> = PDFHistory.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "urlString == %@", urlString)
+            fetchRequest.predicate = NSPredicate(format: "urlString == %@", url.absoluteString)
             
             do {
                 // Perform check for existing entries
@@ -68,7 +70,7 @@ class CoreDataManager {
                 if results.isEmpty {
                     // none in database, insert a new PDFHistory object
                     let newPDFHistory = PDFHistory(context: context)
-                    newPDFHistory.urlString = urlString
+                    newPDFHistory.urlString = url.absoluteString
                     newPDFHistory.access = Date()
                     try context.save()
                     completion(true, nil)

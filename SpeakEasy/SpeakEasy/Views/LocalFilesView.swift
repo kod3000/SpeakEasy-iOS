@@ -59,7 +59,7 @@ struct LocalFilesView: View {
                 DocumentPicker { url in
                     print("Selected document at \(url)")
                     self.pdfURL = url
-                    CoreDataManager.shared.addPDFURLIfNeeded(urlString: url.absoluteString) { added, error in
+                    CoreDataManager.shared.addPDFURLIfNeeded(url: url) { added, error in
                          if let error = error {
                              print("Error: \(error)")
                          } else if added {
