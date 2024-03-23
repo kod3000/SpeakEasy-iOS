@@ -62,13 +62,11 @@ struct HistoryView: View {
                   }
                 }
                 .tint(.blue)
-
                 Button("Edit") {
                   self.editingItem = item
                   self.isEditing = true
                 }
                 .tint(.yellow)
-
                 Button(role: .destructive) {
                   CoreDataManager.shared.deletePDFHistory(
                     item,
@@ -93,7 +91,15 @@ struct HistoryView: View {
         if let editingItem = editingItem {
           EditView(editingItem: editingItem) { updatedItem in
             // updated item
-            // TODO: save changes to Core Data
+              CoreDataManager.shared.updatePDFHistory(updatedItem) { updated, error in
+                  if let error = error {
+                      print("Error: \(error)")
+                  } else if updated {
+                      print("URL was updated to the database.")
+                  } else {
+                      print("Something else happened in the database.")
+                  }
+              }
             self.isEditing = false
             self.loadHistory()
           }
@@ -113,13 +119,37 @@ struct HistoryView: View {
 
 // move to components when completed ..
 struct EditView: View {
-  var editingItem: PDFHistory
-  var onDone: (PDFHistory) -> Void
+    var editingItem: PDFHistory
+    var onDone: (PDFHistory) -> Void
+    @State private var friendlyName: String
 
-  var body: some View {
-    // TODO: Implement edit friendly name
-    Text("Edit Item Placeholder")
-  }
+    init(editingItem: PDFHistory, onDone: @escaping (PDFHistory) -> Void) {
+        self.editingItem = editingItem
+        self.onDone = onDone
+        _friendlyName = State(initialValue: editingItem.friendlyName ?? "") // Initialize with current friendlyName
+    }
+
+    var body: some View {
+        VStack {
+            TextField("Name", text: $friendlyName) // Bind to the @State property
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            Button(action: {
+                editingItem.friendlyName = friendlyName // Update the original item
+                onDone(editingItem) // Call the closure to signal done
+            }) {
+                Text("Save")
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 30)
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 5)
+            }
+        }
+        .padding()
+    }
 }
 
 struct HistoryView_Previews: PreviewProvider {

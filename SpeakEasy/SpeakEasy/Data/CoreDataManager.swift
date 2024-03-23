@@ -66,6 +66,19 @@ class CoreDataManager {
     }
   }
 
+  func updatePDFHistory(_ pdfHistory: PDFHistory, completion: @escaping (Bool, Error?) -> Void) {
+    context.perform {
+      pdfHistory.access = Date()
+
+      do {
+        try self.context.save()
+        completion(true, nil)
+      } catch {
+        completion(false, error)
+      }
+    }
+  }
+
   func fetchPDFHistory() -> [PDFHistory] {
     let fetchRequest: NSFetchRequest<PDFHistory> = PDFHistory.fetchRequest()
     fetchRequest.sortDescriptors = [NSSortDescriptor(key: "access", ascending: false)]
