@@ -1,5 +1,5 @@
 # SpeakEasy
-![speakeasy.webp](/assets/speakeasy.webp)
+![text-sm.webp](/assets/text-sm.webp)
 
 
 Speak Easy is an iOS application being developed using SwiftUI that will allow users to easily convert PDF documents into speech. With Speak Easy, you can select PDFs from your local device or reference PDFs from URLs and have them read aloud to you.
