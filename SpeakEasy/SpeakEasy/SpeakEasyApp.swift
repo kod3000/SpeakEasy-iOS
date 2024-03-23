@@ -14,7 +14,7 @@ struct SpeakEasyApp: App {
     
     var body: some Scene {
           WindowGroup {
-              ContentView().environment(\.managedObjectContext, CoreDataManager.shared.persistentContainer.viewContext)
+              SplashView().environment(\.managedObjectContext, CoreDataManager.shared.persistentContainer.viewContext)
           }
       }
 }

@@ -32,6 +32,7 @@
 		3DBC21702BA99292001B2898 /* SpeakEasyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC216F2BA99292001B2898 /* SpeakEasyTests.swift */; };
 		3DBC217A2BA99292001B2898 /* SpeakEasyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC21792BA99292001B2898 /* SpeakEasyUITests.swift */; };
 		3DBC217C2BA99292001B2898 /* SpeakEasyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC217B2BA99292001B2898 /* SpeakEasyUITestsLaunchTests.swift */; };
+		3DD2C4642BAF91420054C13F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2C4632BAF91420054C13F /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		3DBC21752BA99292001B2898 /* SpeakEasyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeakEasyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBC21792BA99292001B2898 /* SpeakEasyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakEasyUITests.swift; sourceTree = "<group>"; };
 		3DBC217B2BA99292001B2898 /* SpeakEasyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakEasyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3DD2C4632BAF91420054C13F /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				3D1197462BAAFC2D003621C9 /* PdfContentView.swift */,
 				3D1197482BAAFF73003621C9 /* HistoryView.swift */,
 				3D11974A2BAB0047003621C9 /* FetchUrlView.swift */,
+				3DD2C4632BAF91420054C13F /* SplashView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				3D11975A2BACD0C6003621C9 /* PDFPageThumbnails.swift in Sources */,
 				3D1197602BADA2A7003621C9 /* PDFHistoryModel.xcdatamodeld in Sources */,
 				3D1197542BAB86A4003621C9 /* TextProcessor.swift in Sources */,
+				3DD2C4642BAF91420054C13F /* SplashView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
