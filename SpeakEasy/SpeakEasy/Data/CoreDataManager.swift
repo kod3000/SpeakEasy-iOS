@@ -72,6 +72,8 @@ class CoreDataManager {
                     let newPDFHistory = PDFHistory(context: context)
                     newPDFHistory.urlString = url.absoluteString
                     newPDFHistory.access = Date()
+                    newPDFHistory.friendlyName = url.relativeString
+                    newPDFHistory.fileName = url.relativeString                    
                     try context.save()
                     completion(true, nil)
                 } else {
