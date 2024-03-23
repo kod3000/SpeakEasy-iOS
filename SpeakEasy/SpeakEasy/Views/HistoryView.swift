@@ -19,7 +19,7 @@ import SwiftUI
 struct HistoryView: View {
   @State private var historyItems: [PDFHistory] = []
   @State private var isEditing = false
-  @State private var editingItem: PDFHistory?
+    @State private var editingItem: PDFHistory?
   @Binding var pdfURL: URL?
 
   private func loadHistory() {
@@ -63,10 +63,7 @@ struct HistoryView: View {
                 }
                 .tint(.blue)
                 Button("Edit") {
-                    print("setting edit item")
-                  self.editingItem = item
-                print(self.editingItem)
-                  self.isEditing = true
+                    self.editingItem = item!
                 }
                 .tint(.yellow)
                 Button(role: .destructive) {
@@ -89,26 +86,11 @@ struct HistoryView: View {
       }
       .navigationTitle("History")
       .onAppear(perform: loadHistory)
-      .sheet(isPresented: $isEditing) {
-          if let editingItem = self.editingItem {
-
-              EditView(editingItem: editingItem) { newFriendlyName in
-                  if let index = historyItems.firstIndex(where: { $0.id == editingItem.id }) {
-                      historyItems[index].friendlyName = newFriendlyName
-                      editingItem.friendlyName = newFriendlyName
-                      CoreDataManager.shared.updatePDFHistory(editingItem) { updated, error in
-                           if let error = error {
-                               print("Error: \(error)")
-                           } else if updated {
-                               print("Update entry in database.")
-                           } else {
-                               print("Something else happened in the database.")
-                           }
-                       }
-                  }
-                  isEditing = false
-              }
-          }
+      .sheet(item: $editingItem) { (item: PDFHistory) in
+                    EditView(editingItem: item) { updatedItem in
+                        // ???
+                        self.loadHistory()
+                    }
       }
     }
   }
@@ -149,7 +131,7 @@ struct EditView: View {
             .foregroundColor(.white)
             .background(Color.blue)
             .cornerRadius(10)
-        }
+        }.padding()
     }
 }
 
