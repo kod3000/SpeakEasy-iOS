@@ -88,7 +88,7 @@ struct HistoryView: View {
       .onAppear(perform: loadHistory)
       .sheet(item: $editingItem) { (item: PDFHistory) in
                     EditView(editingItem: item) { updatedName in
-                        // ???
+                        // update database
                         item.friendlyName = updatedName
                         CoreDataManager.shared.updatePDFHistory(item) { updated, error in
                                     if let error = error {
@@ -99,8 +99,12 @@ struct HistoryView: View {
                                         print("Something else happened in the database.")
                                     }
                                 }
-                              self.editingItem = nil
-                              self.loadHistory()
+                        // update display
+                        if let index = historyItems.firstIndex(where: { $0.id == item.id }) {
+                            historyItems[index].friendlyName = updatedName
+                        }
+                        self.editingItem = nil
+                        self.loadHistory()
                     }
       }
     }
