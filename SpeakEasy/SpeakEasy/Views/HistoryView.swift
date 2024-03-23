@@ -88,6 +88,8 @@ struct HistoryView: View {
       .navigationTitle("History")
       .onAppear(perform: loadHistory)
       .sheet(isPresented: $isEditing) {
+          print(editingItem)
+          print(isEditing)
           if let editingItem = editingItem {
               EditView(editingItem: editingItem) { newFriendlyName in
                   if let index = historyItems.firstIndex(where: { $0.id == editingItem.id }) {
