@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-
 struct HistoryView: View {
   @State private var historyItems: [PDFHistory] = []
   @State private var isEditing = false
-    @State private var editingItem: PDFHistory?
+  @State private var editingItem: PDFHistory?
   @Binding var pdfURL: URL?
 
   private func loadHistory() {
-    historyItems = [] // lets reset the array
+    historyItems = []  // lets reset the array
     historyItems = CoreDataManager.shared.fetchPDFHistory()
   }
 
@@ -49,14 +48,25 @@ struct HistoryView: View {
               .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                 Button("View") {
                   if let urlString = item.urlString, let url = URL(string: urlString) {
+                    CoreDataManager.shared.updatePDFHistory(item, updateAcces: true) {
+                      updated, error in
+                      if let error = error {
+                        print("Error: \(error)")
+                      } else if updated {
+                        print("Entry was updated in the database.")
+                      } else {
+                        print("Something else happened in the database.")
+                      }
+                    }
                     self.pdfURL = url
+
                   } else {
                     print("Invalid URL string: \(item.urlString ?? "nil")")
                   }
                 }
                 .tint(.blue)
                 Button("Edit") {
-                    self.editingItem = item
+                  self.editingItem = item
                 }
                 .tint(.yellow)
                 Button(role: .destructive) {
@@ -80,21 +90,21 @@ struct HistoryView: View {
       .navigationTitle("History")
       .onAppear(perform: loadHistory)
       .sheet(item: $editingItem) { (item: PDFHistory) in
-                    EditView(editingItem: item) { updatedName in
-                        // update database
-                        item.friendlyName = updatedName
-                        CoreDataManager.shared.updatePDFHistory(item, updateAcces: false) { updated, error in
-                                    if let error = error {
-                                        print("Error: \(error)")
-                                    } else if updated {
-                                        print("Entry was updated in the database.")
-                                    } else {
-                                        print("Something else happened in the database.")
-                                    }
-                                }
-                        self.editingItem = nil
-                        self.loadHistory()
-                    }
+        EditView(editingItem: item) { updatedName in
+          // update database
+          item.friendlyName = updatedName
+          CoreDataManager.shared.updatePDFHistory(item, updateAcces: false) { updated, error in
+            if let error = error {
+              print("Error: \(error)")
+            } else if updated {
+              print("Entry was updated in the database.")
+            } else {
+              print("Something else happened in the database.")
+            }
+          }
+          self.editingItem = nil
+          self.loadHistory()
+        }
       }
     }
   }
@@ -110,38 +120,38 @@ struct HistoryView: View {
 
 // move to components when completed ..
 struct EditView: View {
-    @State private var friendlyName: String
-    let editingItem: PDFHistory
-    let onDone: (String) -> Void
+  @State private var friendlyName: String
+  let editingItem: PDFHistory
+  let onDone: (String) -> Void
 
-    init(editingItem: PDFHistory, onDone: @escaping (String) -> Void) {
-        self.editingItem = editingItem
-        self.onDone = onDone
-        _friendlyName = State(initialValue: editingItem.friendlyName ?? "")
-        print("Initializing EditView with friendlyName: \(self.friendlyName)")
-    }
+  init(editingItem: PDFHistory, onDone: @escaping (String) -> Void) {
+    self.editingItem = editingItem
+    self.onDone = onDone
+    _friendlyName = State(initialValue: editingItem.friendlyName ?? "")
+    print("Initializing EditView with friendlyName: \(self.friendlyName)")
+  }
 
-    var body: some View {
-        VStack {
-            Text("Document Name").bold().font(.largeTitle)
-                .multilineTextAlignment(.leading)
+  var body: some View {
+    VStack {
+      Text("Document Name").bold().font(.largeTitle)
+        .multilineTextAlignment(.leading)
 
-            TextField("Name", text: $friendlyName)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .multilineTextAlignment(.center)
-                .foregroundColor(.primary)
-                .padding()
-            
-            Button("Save") {
-                onDone(friendlyName)
-            }
-            .padding()
-            .frame(minWidth: 0, maxWidth: .infinity)
-            .foregroundColor(.white)
-            .background(Color.blue)
-            .cornerRadius(10)
-        }.padding()
-    }
+      TextField("Name", text: $friendlyName)
+        .textFieldStyle(RoundedBorderTextFieldStyle())
+        .multilineTextAlignment(.center)
+        .foregroundColor(.primary)
+        .padding()
+
+      Button("Save") {
+        onDone(friendlyName)
+      }
+      .padding()
+      .frame(minWidth: 0, maxWidth: .infinity)
+      .foregroundColor(.white)
+      .background(Color.blue)
+      .cornerRadius(10)
+    }.padding()
+  }
 }
 
 struct HistoryView_Previews: PreviewProvider {
