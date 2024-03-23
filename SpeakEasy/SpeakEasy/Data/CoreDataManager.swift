@@ -10,38 +10,51 @@ import CoreData
 
 class CoreDataManager {
     static let shared = CoreDataManager()
-    let persistentContainer: NSPersistentContainer
+    private let persistentContainer: NSPersistentContainer
 
-    init() {
+    private init() {
         persistentContainer = NSPersistentContainer(name: "PDFHistoryModel")
-        persistentContainer.loadPersistentStores { (description, error) in
+        persistentContainer.loadPersistentStores { (_, error) in
             if let error = error {
                 fatalError("Core Data Store failed \(error.localizedDescription)")
             }
         }
     }
 
-    func savePDFURL(url: URL, completion: @escaping (Error?) -> Void) {
-        let context = persistentContainer.viewContext
-        let pdfHistory = PDFHistory(context: context)
-        pdfHistory.urlString = url.absoluteString
-        pdfHistory.friendlyName = url.relativeString
-        pdfHistory.fileName = url.relativeString
-        pdfHistory.access = Date()
+    private var context: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
 
-        do {
-            try context.save()
-            completion(nil)
-        } catch {
-            completion(error)
+    func savePDFURL(url: URL, completion: @escaping (Bool,Error?) -> Void) {
+        guard !url.absoluteString.isEmpty else {
+            // No error, just no action taken for empty URL.
+            completion(false, nil)
+            return
+        }
+
+        context.perform {
+            if self.fetchPDFHistory(with: url.absoluteString).isEmpty {
+                let pdfHistory = PDFHistory(context: self.context)
+                pdfHistory.urlString = url.absoluteString
+                pdfHistory.friendlyName = url.lastPathComponent
+                pdfHistory.fileName = url.standardizedFileURL.lastPathComponent
+                pdfHistory.access = Date()
+
+                do {
+                    try self.context.save()
+                    completion(true, nil)
+                } catch {
+                    completion(false, error)
+                }
+            } else {
+                // No error, just no need to add a duplicate.
+                completion(false, nil)
+            }
         }
     }
 
     func fetchPDFHistory() -> [PDFHistory] {
-        let context = persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<PDFHistory> = PDFHistory.fetchRequest()
-
-        // lets sort by access date
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "access", ascending: false)]
 
         do {
@@ -52,39 +65,15 @@ class CoreDataManager {
         }
     }
     
-    func addPDFURLIfNeeded(url: URL, completion: @escaping (Bool, Error?) -> Void) {
-        
-            if url.absoluteString == "" {
-                return;
-            }
-            let context = persistentContainer.viewContext
-            
-            // Create request to PDFHistory entity, filter by the urlString
-            let fetchRequest: NSFetchRequest<PDFHistory> = PDFHistory.fetchRequest()
-            fetchRequest.predicate = NSPredicate(format: "urlString == %@", url.absoluteString)
-            
-            do {
-                // Perform check for existing entries
-                let results = try context.fetch(fetchRequest)
-                
-                // TODO : CLEAN UP REDUNDANT CODE .. >_<!
-                if results.isEmpty {
-                    // none in database, insert a new PDFHistory object
-                    let newPDFHistory = PDFHistory(context: context)
-                    newPDFHistory.urlString = url.absoluteString
-                    newPDFHistory.access = Date()
-                    newPDFHistory.friendlyName = url.lastPathComponent 
-                    newPDFHistory.fileName = url.standardizedFileURL.lastPathComponent
-                    try context.save()
-                    completion(true, nil)
-                } else {
-                    // Not added because it already exists
-                    completion(false, nil)
-                }
-            } catch {
-                // Damn .. Error occurred
-                completion(false, error)
-            }
+    private func fetchPDFHistory(with urlString: String) -> [PDFHistory] {
+        let fetchRequest: NSFetchRequest<PDFHistory> = PDFHistory.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "urlString == %@", urlString)
+
+        do {
+            return try context.fetch(fetchRequest)
+        } catch {
+            print("Error fetching PDFHistory for URL: \(error)")
+            return []
         }
-    
+    }
 }
