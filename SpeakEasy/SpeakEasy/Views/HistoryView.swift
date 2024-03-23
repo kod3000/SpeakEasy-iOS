@@ -135,14 +135,12 @@ struct EditView: View {
 
     var body: some View {
         VStack {
-            print("EditView body is being executed")
             TextField("Name", text: $friendlyName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .foregroundColor(.primary)
                 .padding()
             
             Button("Save") {
-                // Instead of directly manipulating editingItem here,
-                // Pass back the new friendlyName through onDone closure.
                 onDone(friendlyName)
             }
             .padding()
