@@ -134,8 +134,8 @@ struct EditView: View {
     }
 
     var body: some View {
-        print("EditView body is being executed")
         VStack {
+            print("EditView body is being executed")
             TextField("Name", text: $friendlyName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
