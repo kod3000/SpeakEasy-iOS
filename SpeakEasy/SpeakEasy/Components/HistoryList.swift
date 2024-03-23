@@ -31,7 +31,13 @@ struct ListHistoryView: View {
                 // The original List view for displaying history items
                 List(historyItems, id: \.self) { item in
                     VStack(alignment: .leading) {
-                        Text(item.urlString ?? "Unknown URL")
+                        Text(item.friendlyName ?? "Unknown")
+                        Text(item.fileName ?? "Unknown File Name")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                        Text(item.urlString ?? "Unknown Location")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
                         if let accessDate = item.access {
                             Text("Accessed: \(itemFormatter.string(from: accessDate))")
                                 .font(.subheadline)
