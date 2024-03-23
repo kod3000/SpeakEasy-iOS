@@ -87,9 +87,20 @@ struct HistoryView: View {
       .navigationTitle("History")
       .onAppear(perform: loadHistory)
       .sheet(item: $editingItem) { (item: PDFHistory) in
-                    EditView(editingItem: item) { updatedItem in
+                    EditView(editingItem: item) { updatedName in
                         // ???
-                        self.loadHistory()
+                        item.friendlyName = updatedName
+                        CoreDataManager.shared.updatePDFHistory(item) { updated, error in
+                                    if let error = error {
+                                        print("Error: \(error)")
+                                    } else if updated {
+                                        print("URL was updated to the database.")
+                                    } else {
+                                        print("Something else happened in the database.")
+                                    }
+                                }
+                              self.editingItem = nil
+                              self.loadHistory()
                     }
       }
     }
@@ -119,8 +130,10 @@ struct EditView: View {
 
     var body: some View {
         VStack {
+            Text("Name : ").bold().font(.largeTitle)
             TextField("Name", text: $friendlyName)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .multilineTextAlignment(.center)
                 .foregroundColor(.primary)
                 .padding()
             
@@ -128,6 +141,7 @@ struct EditView: View {
                 onDone(friendlyName)
             }
             .padding()
+            .frame(minWidth: 0, maxWidth: .infinity)
             .foregroundColor(.white)
             .background(Color.blue)
             .cornerRadius(10)

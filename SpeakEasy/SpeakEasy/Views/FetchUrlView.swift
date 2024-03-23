@@ -19,6 +19,7 @@ struct FetchUrlView: View {
                 VStack {
                     TextField("Enter Pdf Url", text: $pdfURLEntered)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .multilineTextAlignment(.center)
                         .padding()
                     Button(action: {
                         PDFDownloaderSave.downloadPDF(from: pdfURLEntered) { url in
