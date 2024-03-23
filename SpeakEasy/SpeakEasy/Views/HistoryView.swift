@@ -101,6 +101,7 @@ struct HistoryView: View {
                                 }
                         // update display
                         if let index = historyItems.firstIndex(where: { $0.id == item.id }) {
+                            print("updated display")
                             historyItems[index].friendlyName = updatedName
                         }
                         self.editingItem = nil
