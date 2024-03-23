@@ -63,7 +63,7 @@ struct HistoryView: View {
                 }
                 .tint(.blue)
                 Button("Edit") {
-                    self.editingItem = item!
+                    self.editingItem = item
                 }
                 .tint(.yellow)
                 Button(role: .destructive) {
