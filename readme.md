@@ -35,11 +35,11 @@ To get started with Speak Easy, follow these steps:
 
 ## Feedback
 
-This was a sprint project, took me less than a few days to concepulaize and code into being. I made it to help me in my studies with reading some science papers while on the move. I'm always open to improve existing work and would love to hear your feedback. If you have any suggestions, feature requests, or encounter any issues while using the app, please don't hesitate to contact me at [kod3000@gmail.com](mailto:kod3000@gmail.com).
+This was a sprint project; it took me less than a few days to conceptualize and code into existence. I made it to help me in my studies with reading some computer science papers while on the move. I'm always open to improving existing work and would love to hear your feedback. If you have any suggestions, feature requests, or encounter any issues while using the app, please don't hesitate to contact me at [kod3000@gmail.com](mailto:kod3000@gmail.com).
 
 ## Contribution
 
-All contributions very welcome! And remember, contribution is not only PRs and code, but any help with docs or helping other developers to solve issues are very appreciated! Thanks in advance!
+All contributions very welcome! I opened source this project in hopes to help others get a baseline on how to get an app up and running on iOS. I hope its useful, and if you want to add feel free to fork away. And remember, contribution is not only PRs and code, but any help with docs or helping other developers to solve issues are very appreciated! Thanks in advance!
 
 ## License
 
