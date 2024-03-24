@@ -33,6 +33,12 @@
 		3DBC217A2BA99292001B2898 /* SpeakEasyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC21792BA99292001B2898 /* SpeakEasyUITests.swift */; };
 		3DBC217C2BA99292001B2898 /* SpeakEasyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC217B2BA99292001B2898 /* SpeakEasyUITestsLaunchTests.swift */; };
 		3DD2C4642BAF91420054C13F /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2C4632BAF91420054C13F /* SplashView.swift */; };
+		3DD2C4662BB0B38A0054C13F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD2C4652BB0B38A0054C13F /* RxCocoa */; };
+		3DD2C4682BB0B3920054C13F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD2C4672BB0B3920054C13F /* RxSwift */; };
+		3DD2C46A2BB0B3970054C13F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD2C4692BB0B3970054C13F /* Alamofire */; };
+		3DD2C46C2BB0B39E0054C13F /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD2C46B2BB0B39E0054C13F /* RxCocoa */; };
+		3DD2C46E2BB0B3A30054C13F /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD2C46D2BB0B3A30054C13F /* RxSwift */; };
+		3DD2C4702BB0B3A70054C13F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD2C46F2BB0B3A70054C13F /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +103,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD2C46A2BB0B3970054C13F /* Alamofire in Frameworks */,
+				3DD2C4682BB0B3920054C13F /* RxSwift in Frameworks */,
+				3DD2C4662BB0B38A0054C13F /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +113,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD2C4702BB0B3A70054C13F /* Alamofire in Frameworks */,
+				3DD2C46E2BB0B3A30054C13F /* RxSwift in Frameworks */,
+				3DD2C46C2BB0B39E0054C13F /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +306,11 @@
 				3DBC216D2BA99292001B2898 /* PBXTargetDependency */,
 			);
 			name = SpeakEasyTests;
+			packageProductDependencies = (
+				3DD2C4652BB0B38A0054C13F /* RxCocoa */,
+				3DD2C4672BB0B3920054C13F /* RxSwift */,
+				3DD2C4692BB0B3970054C13F /* Alamofire */,
+			);
 			productName = SpeakEasyTests;
 			productReference = 3DBC216B2BA99292001B2898 /* SpeakEasyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -312,6 +329,11 @@
 				3DBC21772BA99292001B2898 /* PBXTargetDependency */,
 			);
 			name = SpeakEasyUITests;
+			packageProductDependencies = (
+				3DD2C46B2BB0B39E0054C13F /* RxCocoa */,
+				3DD2C46D2BB0B3A30054C13F /* RxSwift */,
+				3DD2C46F2BB0B3A70054C13F /* Alamofire */,
+			);
 			productName = SpeakEasyUITests;
 			productReference = 3DBC21752BA99292001B2898 /* SpeakEasyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -655,9 +677,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = systems.kod.speakeasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeakEasy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeakEasy";
 			};
 			name = Debug;
@@ -675,9 +700,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = systems.kod.speakeasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeakEasy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeakEasy";
 			};
 			name = Release;
@@ -694,9 +722,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = systems.kod.speakeasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = SpeakEasy;
 			};
 			name = Debug;
@@ -713,9 +744,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = systems.kod.speakeasy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = SpeakEasy;
 			};
 			name = Release;
@@ -795,6 +829,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3D1197362BAAF02C003621C9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		3DD2C4652BB0B38A0054C13F /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D1197362BAAF02C003621C9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		3DD2C4672BB0B3920054C13F /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D1197362BAAF02C003621C9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		3DD2C4692BB0B3970054C13F /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D1197312BAAEF49003621C9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		3DD2C46B2BB0B39E0054C13F /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D1197362BAAF02C003621C9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		3DD2C46D2BB0B3A30054C13F /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D1197362BAAF02C003621C9 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		3DD2C46F2BB0B3A70054C13F /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D1197312BAAEF49003621C9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 
