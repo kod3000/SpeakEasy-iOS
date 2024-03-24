@@ -16,11 +16,13 @@ struct SplashView: View {
     } else {
       VStack {
         Spacer()
-        Image("LogoEasy")
+              .frame(minWidth: 0, maxWidth: .infinity)
+          Image("LogoEasy")
           .resizable()
           .scaledToFit()
-          .frame(width: 200, height: 200)
+          .frame(width: 250, height: 200)
         Spacer()
+              .frame(minWidth: 0, maxWidth: .infinity)
       }.background(Color.black)
         .edgesIgnoringSafeArea(.all)
         .onAppear {
