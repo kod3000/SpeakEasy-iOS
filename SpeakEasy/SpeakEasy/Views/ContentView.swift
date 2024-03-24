@@ -22,19 +22,20 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       ZStack {
-        Image("background1")
-          .resizable()
-          .aspectRatio(contentMode: .fill)
-          .offset(x: backgroundOffset.width, y: backgroundOffset.height)
-          .animation(
-            .linear(duration: 10).repeatForever(autoreverses: true), value: backgroundOffset
-          )
-          .onAppear {
-            backgroundOffset = CGSize(width: 20, height: 20)
+          if pdfURL == nil {
+              Image("background1")
+                  .resizable()
+                  .aspectRatio(contentMode: .fill)
+                  .offset(x: backgroundOffset.width, y: backgroundOffset.height)
+                  .animation(
+                    .linear(duration: 10).repeatForever(autoreverses: true), value: backgroundOffset
+                  )
+                  .onAppear {
+                      backgroundOffset = CGSize(width: 20, height: 20)
+                  }
+                  .edgesIgnoringSafeArea(.all)
+                  .background(Color.black)
           }
-          .edgesIgnoringSafeArea(.all)
-          .background(Color.black)
-
         VStack {
           if let pdfURL = pdfURL {
             PDFContentView(
