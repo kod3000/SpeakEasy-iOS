@@ -12,7 +12,7 @@ struct SplashView: View {
 
   var body: some View {
     if isActive {
-      ContentView()
+      ContentView().background(Color.clear)
     } else {
       VStack {
         Spacer()
