@@ -48,17 +48,17 @@ struct ContentView: View {
               VStack {
                 NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
                   Btn(title: "Select URL")
-                }
+                }.background(Color.black)
                 NavigationLink(destination: LocalFilesView(pdfURL: $pdfURL)) {
                   Btn(title: "Select Local File")
-                }
+                }.background(Color.black)
                 NavigationLink(destination: HistoryView(pdfURL: $pdfURL)) {
                   Btn(title: "See last viewed files")
-                }
+                }.background(Color.black)
 
               }
+              .padding()
             }
-            .background(Color.black)
 
           }
 
