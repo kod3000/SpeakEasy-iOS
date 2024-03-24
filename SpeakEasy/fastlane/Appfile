@@ -1,0 +1,7 @@
+app_identifier("systems.kod.speakeasy") # The bundle identifier of your app
+
+itc_team_id("487026") # App Store Connect Team ID
+team_id("P42NKR2D3Z") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

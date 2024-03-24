@@ -57,3 +57,4 @@ fastlane/screenshots
 #
 *.cert
 *.mobileprovision
+SpeakEasy/fastlane/*.p8
