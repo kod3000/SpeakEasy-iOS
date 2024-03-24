@@ -35,7 +35,7 @@ To get started with Speak Easy, follow these steps:
 
 ## Feedback
 
-I am constantly working to improve Speak Easy and would love to hear your feedback. If you have any suggestions, feature requests, or encounter any issues while using the app, please don't hesitate to contact me at [kod3000@gmail.com](mailto:kod3000@gmail.com).
+This was a sprint project, took me less than a few days to concepulaize and code into being. I made it to help me in my studies with reading some science papers while on the move. I'm always open to improve existing work and would love to hear your feedback. If you have any suggestions, feature requests, or encounter any issues while using the app, please don't hesitate to contact me at [kod3000@gmail.com](mailto:kod3000@gmail.com).
 
 ## Contribution
 
