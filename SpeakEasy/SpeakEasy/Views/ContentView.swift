@@ -45,7 +45,18 @@ struct ContentView: View {
             )
           } else {
             Group {
+
               VStack {
+                Text("Speak Easy").bold().font(.largeTitle)
+                  .foregroundColor(.white)
+                  .background(Color.black)
+                  .padding(2)
+                  .multilineTextAlignment(.leading)
+                Text("Your PDFs spoken to you on the go.").bold().font(.subheadline)
+                  .foregroundColor(.white)
+                  .background(Color.black.opacity(0.3))
+                  .padding(2)
+                  .multilineTextAlignment(.leading)
                 NavigationLink(destination: FetchUrlView(pdfURL: $pdfURL)) {
                   Btn(title: "Select URL")
                 }.background(Color.black)
