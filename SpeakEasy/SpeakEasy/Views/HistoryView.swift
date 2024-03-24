@@ -23,9 +23,10 @@ struct HistoryView: View {
       Group {
         if historyItems.isEmpty {
           // Display a message when there is no history
-          Text("No history as of yet")
+          Text("Alas, You Have No history as of yet")
             .foregroundColor(.gray)
             .italic()
+            .bold()
         } else {
           // List view for displaying history items with swipe actions
           List {
