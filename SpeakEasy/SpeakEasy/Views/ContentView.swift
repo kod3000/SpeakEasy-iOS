@@ -27,7 +27,7 @@ struct ContentView: View {
           .aspectRatio(contentMode: .fill)
           .offset(x: backgroundOffset.width, y: backgroundOffset.height)
           .animation(
-            .linear(duration: 15).repeatForever(autoreverses: true), value: backgroundOffset
+            .linear(duration: 10).repeatForever(autoreverses: true), value: backgroundOffset
           )
           .onAppear {
             backgroundOffset = CGSize(width: 20, height: 20)
