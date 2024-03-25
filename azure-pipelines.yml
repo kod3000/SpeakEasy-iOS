@@ -1,19 +1,21 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'macOS-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- checkout: self
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '>= 2.6'
+    addToPath: true
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    gem install fastlane
+    fastlane your_lane
+  displayName: 'Run Fastlane'
+  env:
+    APP_STORE_CONNECT_KEY_ID: $(apple-key-id)
+    APP_STORE_CONNECT_ISSUER_ID: $(apple-issuer-id)
+    APP_STORE_CONNECT_KEY: $(apple-api-key)

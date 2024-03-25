@@ -21,8 +21,8 @@ platform :ios do
     app_store_connect_api_key(
       key_id: ENV["APP_STORE_CONNECT_KEY_ID"],
       issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-      key_filepath: ENV["APP_STORE_CONNECT_KEY_FILEPATH"],
-      duration: 1200, 
+      key_content: ENV["APP_STORE_CONNECT_KEY"],
+      is_key_content_base64: true,
       in_house: false
     )
 
